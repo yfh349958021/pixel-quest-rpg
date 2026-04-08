@@ -1,5 +1,5 @@
 extends Node
-## 场景管理器
+## 场景管理器 (autoload不会被场景切换销毁)
 
 var _transition_rect: ColorRect = null
 var _is_transitioning: bool = false
@@ -16,17 +16,11 @@ func goto_scene(path: String, fade_duration: float = 0.5) -> void:
 	if _is_transitioning:
 		return
 	_is_transitioning = true
-	await _fade_to_black(fade_duration)
+	var tween: Tween = create_tween()
+	tween.tween_property(_transition_rect, "modulate:a", 1.0, fade_duration)
+	await tween.finished
 	get_tree().change_scene_to_file(path)
-	await _fade_from_black(fade_duration)
+	var tween2: Tween = create_tween()
+	tween2.tween_property(_transition_rect, "modulate:a", 0.0, fade_duration)
+	await tween2.finished
 	_is_transitioning = false
-
-func _fade_to_black(duration: float) -> void:
-	var tween: Tween = create_tween()
-	tween.tween_property(_transition_rect, "modulate:a", 1.0, duration)
-	await tween.finished
-
-func _fade_from_black(duration: float) -> void:
-	var tween: Tween = create_tween()
-	tween.tween_property(_transition_rect, "modulate:a", 0.0, duration)
-	await tween.finished

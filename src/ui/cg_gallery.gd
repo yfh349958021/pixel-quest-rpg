@@ -65,5 +65,3 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and cg_display.visible:
 		cg_display.visible = false
 		get_viewport().set_input_as_handled()
-TSCN
-echo "✓ cg_gallery.gd"

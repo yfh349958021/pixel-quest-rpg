@@ -31,22 +31,27 @@ func _show_dialogue_options() -> void:
 	speaker_label.text = ""
 	portrait.texture = null
 	
-	# 清空旧选项
 	for child in option_container.get_children():
 		child.queue_free()
 	
-	# 获取对话选项
-	var options := DialogueManager.get_dialogue_options(_current_npc.get_npc_name())
+	var options: Array = DialogueManager.get_dialogue_options(_current_npc.get_npc_name())
+	
+	if options.is_empty():
+		# 没有任何对话选项，直接关闭
+		hide()
+		_current_npc = null
+		dialogue_finished.emit()
+		return
 	
 	for opt in options:
-		var btn := Button.new()
+		var btn: Button = Button.new()
 		btn.text = opt["label"]
-		btn.pressed.connect(_on_option_selected.bind(opt["index"]))
+		var idx: int = opt["index"]
+		btn.pressed.connect(_on_option_selected.bind(idx))
 		option_container.add_child(btn)
 
 func _on_option_selected(index: int) -> void:
 	if index == -1:
-		# 离开
 		hide()
 		_current_npc = null
 		dialogue_finished.emit()
@@ -61,10 +66,8 @@ func _on_dialogue_started(_npc_name: String) -> void:
 func _on_line_shown(speaker: String, text: String, portrait_path: String) -> void:
 	speaker_label.text = speaker
 	text_label.text = text
-	
-	# 加载立绘
 	if portrait_path != "" and ResourceLoader.exists(portrait_path):
-		var tex := load(portrait_path) as Texture2D
+		var tex: Texture2D = load(portrait_path) as Texture2D
 		if tex:
 			portrait.texture = tex
 	else:
@@ -83,13 +86,9 @@ func _on_video_requested(video_path: String) -> void:
 func _input(event: InputEvent) -> void:
 	if not visible or _is_showing_options:
 		return
-	
-	# 空格/回车/鼠标左键 下一行
 	if event.is_action_pressed("ui_accept"):
 		DialogueManager.next_line()
 		get_viewport().set_input_as_handled()
-	
-	# ESC跳过对话
 	if event.is_action_pressed("ui_cancel"):
 		DialogueManager.end_dialogue()
 		get_viewport().set_input_as_handled()

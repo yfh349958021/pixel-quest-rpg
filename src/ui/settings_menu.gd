@@ -6,9 +6,7 @@ extends Control
 @onready var option_language: OptionButton = $VBoxContainer/LanguageBox/OptionLanguage
 @onready var btn_back: Button = $VBoxContainer/BtnBack
 
-var _resolution_keys := ["720p", "1080p", "2K", "4K"]
-var _display_modes := ["windowed", "borderless", "fullscreen"]
-var _languages := ["cn", "jp"]
+var _resolution_keys: Array = ["720p", "1080p", "2K", "4K"]
 
 func _ready() -> void:
 	_setup_options()
@@ -16,32 +14,25 @@ func _ready() -> void:
 	_connect_signals()
 
 func _setup_options() -> void:
-	# 分辨率选项
 	option_resolution.clear()
-	for key in _resolution_keys:
+	for key: String in _resolution_keys:
 		option_resolution.add_item(key)
 	
-	# 显示模式选项
 	option_display.clear()
-	for mode in _display_modes:
-		option_display.add_item(LocalizationManager.get_text(mode))
+	option_display.add_item("窗口化")
+	option_display.add_item("无边框")
+	option_display.add_item("全屏")
 	
-	# 语言选项
 	option_language.clear()
 	option_language.add_item("简体中文")
 	option_language.add_item("日本語")
 
 func _load_current_settings() -> void:
-	# 分辨率
-	var res_idx = _resolution_keys.find(SettingsManager.resolution_name)
+	var res_idx: int = _resolution_keys.find(SettingsManager.resolution_name)
 	if res_idx >= 0:
 		option_resolution.selected = res_idx
-	
-	# 显示模式
-	option_display.selected = SettingsManager.display_mode
-	
-	# 语言
-	option_language.selected = SettingsManager.current_language
+	option_display.selected = clampi(SettingsManager.display_mode, 0, 2)
+	option_language.selected = clampi(SettingsManager.current_language, 0, 1)
 
 func _connect_signals() -> void:
 	option_resolution.item_selected.connect(_on_resolution_changed)

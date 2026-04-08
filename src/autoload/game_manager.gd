@@ -1,34 +1,17 @@
 extends Node
-## 游戏核心管理器 - 管理玩家状态、游戏阶段、NPC状态
+## 游戏核心管理器
 
 signal game_phase_changed(new_phase: int)
 signal npc_status_changed(npc_name: String, new_status: String)
+signal cg_gallery_changed
 
-# 玩家状态
-var game_phase: int = 0 :  # 0=初始(未开始), 1,2,3...
-	set(value):
-		game_phase = value
-		game_phase_changed.emit(value)
-
-# NPC状态字典: { npc_name: status_string }
+var game_phase: int = 0
 var npc_statuses: Dictionary = {}
-
-# 玩家背包
 var inventory: Array = []
-
-# 已解锁关卡
 var unlocked_maps: Array = []
-
-# 当前地图
 var current_map: String = ""
-
-# 游戏是否在进行中
 var is_game_started: bool = false
-
-# 玩家在地图中的位置
-var player_position: Vector2 = Vector2.ZERO
-
-# 已解锁的CG列表
+var player_position: Vector2 = Vector2(640, 360)
 var unlocked_cgs: Array = []
 
 func _ready() -> void:
@@ -43,6 +26,12 @@ func start_new_game() -> void:
 	is_game_started = true
 	current_map = "map_01"
 	player_position = Vector2(640, 360)
+	game_phase_changed.emit(1)
+
+func set_game_phase(value: int) -> void:
+	if game_phase != value:
+		game_phase = value
+		game_phase_changed.emit(value)
 
 func set_npc_status(npc_name: String, status: String) -> void:
 	npc_statuses[npc_name] = status
@@ -68,8 +57,6 @@ func unlock_cg(cg_id: String) -> void:
 	if cg_id not in unlocked_cgs:
 		unlocked_cgs.append(cg_id)
 		cg_gallery_changed.emit()
-
-signal cg_gallery_changed
 
 func get_save_data() -> Dictionary:
 	return {
