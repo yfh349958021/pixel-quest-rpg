@@ -30,19 +30,17 @@ func _show_dialogue_options() -> void:
 	text_label.text = ""
 	speaker_label.text = ""
 	portrait.texture = null
-	
+
 	for child in option_container.get_children():
 		child.queue_free()
-	
+
 	var options: Array = DialogueManager.get_dialogue_options(_current_npc.get_npc_name())
-	
 	if options.is_empty():
-		# 没有任何对话选项，直接关闭
 		hide()
 		_current_npc = null
 		dialogue_finished.emit()
 		return
-	
+
 	for opt in options:
 		var btn: Button = Button.new()
 		btn.text = opt["label"]
@@ -63,7 +61,7 @@ func _on_option_selected(index: int) -> void:
 func _on_dialogue_started(_npc_name: String) -> void:
 	show()
 
-func _on_line_shown(speaker: String, text: String, portrait_path: String) -> void:
+func _on_line_shown(speaker: String, text: String, portrait_path: String, _cg_index: String) -> void:
 	speaker_label.text = speaker
 	text_label.text = text
 	if portrait_path != "" and ResourceLoader.exists(portrait_path):
