@@ -4,18 +4,47 @@ extends Node
 signal game_phase_changed(new_phase: int)
 signal npc_status_changed(npc_name: String, new_status: String)
 signal cg_gallery_changed
+signal play_time_updated(total_seconds: int)
 
 var game_phase: int = 0
 var npc_statuses: Dictionary = {}
 var inventory: Array = []
 var unlocked_maps: Array = []
 var current_map: String = ""
+var current_map_id: int = 0
 var is_game_started: bool = false
 var player_position: Vector2 = Vector2(640, 360)
 var unlocked_cgs: Array = []
+var total_play_time: int = 0  # 总游玩秒数
+
+var _play_time_timer: Timer = null
 
 func _ready() -> void:
-	pass
+	_play_time_timer = Timer.new()
+	_play_time_timer.name = "PlayTimeTimer"
+	_play_time_timer.wait_time = 1.0
+	_play_time_timer.one_shot = false
+	_play_time_timer.timeout.connect(_on_play_time_tick)
+	add_child(_play_time_timer)
+
+## 开始计时(进入游戏世界)
+func start_play_time() -> void:
+	_play_time_timer.start()
+
+## 停止计时(离开游戏世界)
+func stop_play_time() -> void:
+	_play_time_timer.stop()
+
+## 获取格式化游玩时间
+func get_play_time_str() -> String:
+	var h: int = total_play_time / 3600
+	var m: int = (total_play_time % 3600) / 60
+	var s: int = total_play_time % 60
+	return "%02d:%02d:%02d" % [h, m, s]
+
+func _on_play_time_tick() -> void:
+	total_play_time += 1
+	play_time_updated.emit(total_play_time)
 
 func start_new_game() -> void:
 	game_phase = 1
@@ -23,8 +52,10 @@ func start_new_game() -> void:
 	inventory.clear()
 	unlocked_maps.clear()
 	unlocked_cgs.clear()
+	total_play_time = 0
 	is_game_started = true
-	current_map = "map_01"
+	current_map = "lanhe_village"
+	current_map_id = 0
 	player_position = Vector2(640, 360)
 	game_phase_changed.emit(1)
 
@@ -39,6 +70,10 @@ func set_npc_status(npc_name: String, status: String) -> void:
 
 func get_npc_status(npc_name: String) -> String:
 	return npc_statuses.get(npc_name, "default")
+
+func set_current_map(map_name: String, map_id: int) -> void:
+	current_map = map_name
+	current_map_id = map_id
 
 func add_to_inventory(item_id: String) -> void:
 	inventory.append(item_id)
@@ -66,7 +101,9 @@ func get_save_data() -> Dictionary:
 		"unlocked_maps": unlocked_maps,
 		"unlocked_cgs": unlocked_cgs,
 		"current_map": current_map,
-		"player_position": {"x": player_position.x, "y": player_position.y}
+		"current_map_id": current_map_id,
+		"player_position": {"x": player_position.x, "y": player_position.y},
+		"total_play_time": total_play_time,
 	}
 
 func load_save_data(data: Dictionary) -> void:
@@ -75,7 +112,9 @@ func load_save_data(data: Dictionary) -> void:
 	inventory = data.get("inventory", [])
 	unlocked_maps = data.get("unlocked_maps", [])
 	unlocked_cgs = data.get("unlocked_cgs", [])
-	current_map = data.get("current_map", "map_01")
+	current_map = data.get("current_map", "lanhe_village")
+	current_map_id = data.get("current_map_id", 0)
 	var pos = data.get("player_position", {"x": 640, "y": 360})
 	player_position = Vector2(pos.get("x", 640), pos.get("y", 360))
+	total_play_time = data.get("total_play_time", 0)
 	is_game_started = true

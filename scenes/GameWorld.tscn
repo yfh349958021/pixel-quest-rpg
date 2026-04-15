@@ -41,19 +41,4 @@ shape = SubResource("CircleShape2D_interact")
 
 [node name="NPCs" type="Node2D" parent="."]
 
-[node name="DemoNPC" type="CharacterBody2D" parent="NPCs"]
-position = Vector2(400, 300)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("3_npc")
-npc_name = "pianpian"
-is_core_character = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCs/DemoNPC"]
-shape = SubResource("CircleShape2D_body")
-
-[node name="Sprite2D" type="Sprite2D" parent="NPCs/DemoNPC"]
-modulate = Color(1, 0.5, 0.5, 1)
-scale = Vector2(2, 2)
-
 [node name="DialogueBox" parent="." instance=ExtResource("4_dialogue")]

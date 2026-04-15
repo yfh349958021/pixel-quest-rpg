@@ -9,41 +9,40 @@ extends Control
 @onready var title_label: Label = $TitleLabel
 
 func _ready() -> void:
-	# 更新按钮文字
 	_update_texts()
-	
-	# 检查存档，决定"继续游戏"是否可用
-	btn_continue.disabled = not SaveManager.has_save()
-	
-	# 连接信号
+	btn_continue.disabled = not SaveManager.has_any_save()
 	btn_start.pressed.connect(_on_start_pressed)
 	btn_continue.pressed.connect(_on_continue_pressed)
 	btn_gallery.pressed.connect(_on_gallery_pressed)
 	btn_settings.pressed.connect(_on_settings_pressed)
 	btn_exit.pressed.connect(_on_exit_pressed)
-	
-	# 监听语言变化
 	SettingsManager.language_changed.connect(_update_texts)
 
 func _update_texts() -> void:
-	btn_start.text = LocalizationManager.get_text("start_game")
-	btn_continue.text = LocalizationManager.get_text("continue_game")
-	btn_gallery.text = LocalizationManager.get_text("view_gallery")
-	btn_settings.text = LocalizationManager.get_text("settings")
-	btn_exit.text = LocalizationManager.get_text("exit_game")
-	btn_continue.disabled = not SaveManager.has_save()
+	btn_start.text = "开始游戏"
+	btn_continue.text = "继续游戏"
+	btn_gallery.text = "查看回想"
+	btn_settings.text = "修改设置"
+	btn_exit.text = "退出游戏"
+	btn_continue.disabled = not SaveManager.has_any_save()
 
 func _on_start_pressed() -> void:
-	# 开始新游戏
 	GameManager.start_new_game()
+	SaveManager.start_auto_save()
+	GameManager.start_play_time()
 	SceneManager.goto_scene("res://scenes/GameWorld.tscn")
 
 func _on_continue_pressed() -> void:
-	if SaveManager.load_game():
+	var slot: int = SaveManager.get_latest_slot()
+	if slot >= 0:
+		SaveManager.load_from_slot(slot)
+		SaveManager.start_auto_save()
+		GameManager.start_play_time()
 		SceneManager.goto_scene("res://scenes/GameWorld.tscn")
 
 func _on_gallery_pressed() -> void:
-	SceneManager.goto_scene("res://scenes/CGGallery.tscn")
+	# 进入回想房间
+	SceneManager.goto_scene("res://scenes/RecallRoom.tscn")
 
 func _on_settings_pressed() -> void:
 	SceneManager.goto_scene("res://scenes/Settings.tscn")
