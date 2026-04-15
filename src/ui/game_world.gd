@@ -8,31 +8,30 @@ extends Node2D
 var _system_menu: CanvasLayer = null
 
 func _ready() -> void:
-	# 初始化MapManager
+	# 初始化MapManager并加载当前地图
 	MapManager.setup(map_container)
+	MapManager.load_map(GameManager.current_map_id)
+	await MapManager.map_loaded
 	# 加载系统菜单
 	var menu_scene: PackedScene = load("res://scenes/SystemMenu.tscn")
 	if menu_scene:
 		_system_menu = menu_scene.instantiate()
 		add_child(_system_menu)
-	# 连接NPC交互信号(延迟连接，等MapManager生成NPC后)
-	await MapManager.map_loaded
+	# 连接NPC交互信号
 	_connect_npc_signals()
 	# 设置玩家位置
 	player.position = GameManager.player_position
 	player.freeze_movement(false)
+	# 监听后续地图切换
+	MapManager.map_loaded.connect(_on_map_loaded)
 
 func _connect_npc_signals() -> void:
 	for npc: Node in MapManager.get_current_npcs():
 		if npc.has_signal("dialogue_requested"):
 			if not npc.dialogue_requested.is_connected(_on_npc_dialogue_requested):
 				npc.dialogue_requested.connect(_on_npc_dialogue_requested)
-	# 监听后续地图切换的NPC生成
-	if not MapManager.map_loaded.is_connected(_on_map_loaded):
-		MapManager.map_loaded.connect(_on_map_loaded)
 
 func _on_map_loaded(_map_id: int, _map_name: String) -> void:
-	# 地图切换后重新连接NPC信号
 	await get_tree().process_frame
 	_connect_npc_signals()
 

@@ -5,6 +5,7 @@
 
 [node name="SystemMenu" type="CanvasLayer"]
 layer = 100
+process_mode = 3
 script = ExtResource("1_sys")
 
 [node name="Panel" type="Panel" parent="."]
