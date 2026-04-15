@@ -54,15 +54,23 @@ func find_audio(base_name: String) -> String:
 	return ""
 
 func find_portrait(base_name: String) -> String:
+	# BUG修复: 立绘也支持语言回退
+	var lang_suffix: String = SettingsManager.get_language_suffix()
+	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
 	for ext: String in [".png", ".jpg", ".webp"]:
-		var p: String = "res://assets/sprites/portraits/" + base_name + ext
-		if ResourceLoader.exists(p):
-			return p
+		for suf: String in [lang_suffix, fallback, ""]:
+			var p: String = "res://assets/sprites/portraits/" + base_name + suf + ext
+			if ResourceLoader.exists(p):
+				return p
 	return ""
 
 func find_pixel_image(base_name: String) -> String:
+	# BUG修复: 像素图也支持语言回退
+	var lang_suffix: String = SettingsManager.get_language_suffix()
+	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
 	for ext: String in [".png", ".jpg", ".webp"]:
-		var p: String = "res://assets/sprites/characters/" + base_name + ext
-		if ResourceLoader.exists(p):
-			return p
+		for suf: String in [lang_suffix, fallback, ""]:
+			var p: String = "res://assets/sprites/characters/" + base_name + suf + ext
+			if ResourceLoader.exists(p):
+				return p
 	return ""

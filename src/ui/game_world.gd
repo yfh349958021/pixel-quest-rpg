@@ -5,8 +5,7 @@ extends Node2D
 @onready var npcs_container: Node2D = $NPCs
 @onready var dialogue_box: Control = $DialogueBox
 
-var _system_menu: Control = null
-var _npc_nearby: Node = null
+var _system_menu: CanvasLayer = null
 
 func _ready() -> void:
 	# 加载系统菜单
@@ -23,29 +22,22 @@ func _ready() -> void:
 	dialogue_box.dialogue_finished.connect(_on_dialogue_finished)
 	
 	# 设置玩家位置
-	player.position = GameManager.player_position
+	if player:
+		player.position = GameManager.player_position
 
-func _process(_delta: float) -> void:
-	# ESC键打开系统菜单
-	if Input.is_action_just_pressed("ui_cancel"):
-		if dialogue_box.visible:
-			dialogue_box.hide()
-		elif _system_menu and not _system_menu.visible:
-			_system_menu.open_menu()
-	
-	# 检测附近NPC
-	_check_nearby_npc()
-
-func _check_nearby_npc() -> void:
-	_npc_nearby = null
-	if not player or not player.has_node("InteractionArea"):
-		return
-	var area: Area2D = player.get_node("InteractionArea")
-	var bodies: Array = area.get_overlapping_bodies()
-	for body in bodies:
-		if body is CharacterBody2D and body != player and body.is_in_group("npcs"):
-			_npc_nearby = body
-			break
+func _unhandled_input(event: InputEvent) -> void:
+	# BUG修复: 用_unhandled_input，这样dialogue_box._input消费后这里不会重复处理
+	if not _system_menu or not _system_menu.visible:
+		# 系统菜单未打开时才处理ESC
+		if event.is_action_pressed("ui_cancel"):
+			if dialogue_box.visible:
+				# BUG修复: 对话框打开时ESC应该让dialogue_box自己处理（end_dialogue）
+				# 不需要在这里手动hide，dialogue_box._input已经处理了
+				pass
+			else:
+				# 打开系统菜单
+				_system_menu.open_menu()
+				get_viewport().set_input_as_handled()
 
 func _on_npc_dialogue_requested(npc: Node) -> void:
 	dialogue_box.show_for_npc(npc)

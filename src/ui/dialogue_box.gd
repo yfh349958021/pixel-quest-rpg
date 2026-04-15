@@ -82,11 +82,18 @@ func _on_video_requested(video_path: String) -> void:
 		video_player.play()
 
 func _input(event: InputEvent) -> void:
-	if not visible or _is_showing_options:
+	if not visible:
+		return
+	# BUG修复: 选项界面也允许ESC关闭（选择"离开"）
+	if event.is_action_pressed("ui_cancel"):
+		if _is_showing_options:
+			_on_option_selected(-1)  # 选择"离开"
+		else:
+			DialogueManager.end_dialogue()
+		get_viewport().set_input_as_handled()
+		return
+	if _is_showing_options:
 		return
 	if event.is_action_pressed("ui_accept"):
 		DialogueManager.next_line()
-		get_viewport().set_input_as_handled()
-	if event.is_action_pressed("ui_cancel"):
-		DialogueManager.end_dialogue()
 		get_viewport().set_input_as_handled()

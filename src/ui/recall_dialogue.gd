@@ -27,7 +27,7 @@ func _ready() -> void:
 		_npc_name = get_meta("recall_npc")
 		npc_title.text = _npc_name + " 的对话"
 		_max_phase = DialogueManager.get_max_talk_count(_npc_name)
-		# 启用可用阶段按钮
+		# BUG修复: 启用所有阶段按钮(回想模式不受game_phase限制)
 		for i in range(phase_buttons.get_child_count()):
 			var btn: Button = phase_buttons.get_child(i)
 			if i < _max_phase:
@@ -49,13 +49,15 @@ func _build_phase_buttons() -> void:
 		phase_buttons.add_child(btn)
 
 func _clear_dialogue_area() -> void:
+	# BUG修复: VBoxContainer没有clear()方法，用queue_free逐个删除
 	for child in dialogue_area.get_children():
 		child.queue_free()
 
 func _show_phase(phase: int) -> void:
 	_current_phase = phase
 	_clear_dialogue_area()
-	var lines: Array = DialogueManager._load_talk(_npc_name, phase)
+	# BUG修复: 调用公开方法 DialogueManager.load_talk 而非私有方法 _load_talk
+	var lines: Array = DialogueManager.load_talk(_npc_name, phase)
 	if lines.is_empty():
 		var label := Label.new()
 		label.text = "（该阶段对话尚未编写）"

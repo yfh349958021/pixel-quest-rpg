@@ -33,6 +33,8 @@ func _on_start_pressed() -> void:
 	SceneManager.goto_scene("res://scenes/GameWorld.tscn")
 
 func _on_continue_pressed() -> void:
+	# BUG修复: 直接加载最新存档进入游戏(保持简单)
+	# 如果需要选择槽位，可以改为进入存档选择界面
 	var slot: int = SaveManager.get_latest_slot()
 	if slot >= 0:
 		SaveManager.load_from_slot(slot)
@@ -41,7 +43,6 @@ func _on_continue_pressed() -> void:
 		SceneManager.goto_scene("res://scenes/GameWorld.tscn")
 
 func _on_gallery_pressed() -> void:
-	# 进入回想房间
 	SceneManager.goto_scene("res://scenes/RecallRoom.tscn")
 
 func _on_settings_pressed() -> void:

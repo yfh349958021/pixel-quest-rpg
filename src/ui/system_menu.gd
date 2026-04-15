@@ -15,6 +15,7 @@ var _mode: String = ""  # "save" / "load" / ""
 
 func _ready() -> void:
 	hide()
+	save_load_ui.hide()
 	btn_continue.pressed.connect(_on_continue)
 	btn_load.pressed.connect(_on_load)
 	btn_save.pressed.connect(_on_save)
@@ -23,12 +24,15 @@ func _ready() -> void:
 	save_load_ui.back_pressed.connect(_on_save_load_back)
 	save_load_ui.slot_selected.connect(_on_slot_selected)
 
-func _process(_delta: float) -> void:
-	if visible and Input.is_action_just_pressed("ui_cancel"):
+func _unhandled_input(event: InputEvent) -> void:
+	# BUG修复: 用_unhandled_input代替_process，避免输入被dialogue_box消费后重复处理
+	# ESC关闭系统菜单
+	if visible and event.is_action_pressed("ui_cancel"):
 		if _mode != "":
 			_on_save_load_back()
 		else:
 			_close()
+		get_viewport().set_input_as_handled()
 
 ## 打开系统菜单(从GameWorld调用)
 func open_menu() -> void:
@@ -72,6 +76,10 @@ func _on_save_load_back() -> void:
 
 func _on_slot_selected(slot: int) -> void:
 	if _mode == "load":
+		# BUG修复: load时应该先检查存档是否存在
+		var info: Dictionary = SaveManager.get_slot_info(slot)
+		if not info.get("exists", false):
+			return  # 空槽位不能读档
 		if SaveManager.load_from_slot(slot):
 			_close()
 			SaveManager.stop_auto_save()
@@ -82,7 +90,6 @@ func _on_slot_selected(slot: int) -> void:
 			return  # 不允许手动覆盖自动保存
 		var info: Dictionary = SaveManager.get_slot_info(slot)
 		if info.get("exists", false):
-			# 已有存档, 让用户确认覆盖 - 使用内联确认
 			_confirm_overwrite(slot)
 		else:
 			_do_save(slot)
@@ -93,7 +100,7 @@ func _do_save(slot: int) -> void:
 		_mode = ""
 		save_load_ui.hide()
 
-## 覆盖确认 - 在save_load_ui上显示确认框
+## 覆盖确认
 var _confirm_panel: PanelContainer = null
 var _confirm_slot: int = -1
 
@@ -103,6 +110,8 @@ func _confirm_overwrite(slot: int) -> void:
 	_confirm_slot = slot
 	_confirm_panel = PanelContainer.new()
 	_confirm_panel.name = "ConfirmOverwrite"
+	# BUG修复: CanvasLayer的子节点不能直接用anchors，需要先加到CanvasLayer内部
+	_confirm_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	_confirm_panel.set_anchors_preset(Control.PRESET_CENTER)
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 10)
@@ -122,6 +131,13 @@ func _confirm_overwrite(slot: int) -> void:
 	vbox.add_child(label)
 	vbox.add_child(hbox)
 	_confirm_panel.add_child(vbox)
+	# BUG修复: PanelContainer作为CanvasLayer子节点需要设置正确的anchor
+	# 在CanvasLayer下，Control子节点默认没有容器约束
+	# 需要手动设置全屏+居中
+	_confirm_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_confirm_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_confirm_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
+	vbox.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	add_child(_confirm_panel)
 
 func _on_confirm_yes() -> void:

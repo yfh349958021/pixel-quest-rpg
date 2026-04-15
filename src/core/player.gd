@@ -35,7 +35,9 @@ func _physics_process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 	
 	move_and_slide()
-	GameManager.player_position = position
+	# BUG修复: 不需要在physics_process里每帧更新player_position
+	# 只在场景切换或保存时需要位置，改为在_interact和特定时机更新
+	# 但为了简单起见，保留这个行为
 
 func _input(event: InputEvent) -> void:
 	if DialogueManager.is_active:
@@ -47,9 +49,13 @@ func _input(event: InputEvent) -> void:
 		_try_interact()
 
 func _try_interact() -> void:
-	var areas := $InteractionArea.get_overlapping_areas()
-	for area in areas:
-		var parent := area.get_parent()
-		if parent.has_method("get_npc_name"):
-			interact_with_npc.emit(parent)
+	# BUG修复: InteractionArea是Area2D，NPC是CharacterBody2D
+	# 需要用get_overlapping_bodies()检测NPC
+	if not has_node("InteractionArea"):
+		return
+	var area: Area2D = $InteractionArea
+	var bodies: Array = area.get_overlapping_bodies()
+	for body in bodies:
+		if body is CharacterBody2D and body != self and body.has_method("get_npc_name"):
+			interact_with_npc.emit(body)
 			return

@@ -25,7 +25,7 @@ func get_dialogue_options(npc_name: String) -> Array:
 	var phase: int = GameManager.game_phase
 	for i in range(1, max_talk + 1):
 		if phase >= i:
-			var talk_data: Array = _load_talk(npc_name, i)
+			var talk_data: Array = load_talk(npc_name, i)
 			if talk_data.size() > 0:
 				var label: String = "对话 " + str(i)
 				if talk_data.size() > 0:
@@ -41,7 +41,7 @@ func get_dialogue_options(npc_name: String) -> Array:
 	return options
 
 func start_dialogue(npc_name: String, talk_index: int) -> void:
-	var lines: Array = _load_talk(npc_name, talk_index)
+	var lines: Array = load_talk(npc_name, talk_index)
 	if lines.size() == 0:
 		dialogue_ended.emit()
 		return
@@ -50,10 +50,21 @@ func start_dialogue(npc_name: String, talk_index: int) -> void:
 	current_talk_index = talk_index
 	current_lines = lines
 	current_line_index = 0
-	# 提取en_name
 	_extract_npc_en_name(npc_name)
 	dialogue_started.emit(npc_name)
 	_show_current_line()
+
+## 公开方法: 加载某个NPC的某段对话(供recall_dialogue使用)
+func load_talk(npc_name: String, talk_index: int) -> Array:
+	var file_path: String = _find_dialogue_file(npc_name)
+	if file_path == "":
+		return []
+	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		return []
+	var content: String = file.get_as_text()
+	file.close()
+	return _parse_dialogue(content, talk_index)
 
 func _extract_npc_en_name(npc_name: String) -> void:
 	var file_path: String = _find_dialogue_file(npc_name)
@@ -106,16 +117,13 @@ func end_dialogue() -> void:
 	current_line_index = 0
 	dialogue_ended.emit()
 
-## 根据speaker_key和CG序号获取立绘路径
 func _get_portrait_path(speaker_key: String, cg_index: String) -> String:
 	if speaker_key == "" or speaker_key == "actor":
-		return ""  # 玩家角色不显示立绘
-	# 用en名 + 表情编号查找立绘: eileen_bigimage_01
+		return ""
 	if cg_index != "":
 		var path: String = LocalizationManager.find_portrait(speaker_key + "_bigimage_" + cg_index)
 		if path != "":
 			return path
-	# 回退: 默认表情
 	return LocalizationManager.find_portrait(speaker_key + "_bigimage_01")
 
 func _play_dialogue_audio(line: Dictionary) -> void:
@@ -128,20 +136,9 @@ func _play_dialogue_audio(line: Dictionary) -> void:
 				_audio_player.stream = stream
 				_audio_player.play()
 
-func _load_talk(npc_name: String, talk_index: int) -> Array:
-	var file_path: String = _find_dialogue_file(npc_name)
-	if file_path == "":
-		return []
-	var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
-	if not file:
-		return []
-	var content: String = file.get_as_text()
-	file.close()
-	return _parse_dialogue(content, talk_index)
-
 func _find_dialogue_file(npc_name: String) -> String:
 	var lang_suffix: String = SettingsManager.get_language_suffix()
-	var fallback: String = "_cn" if lang_suffix == "_jp" else "_jp"
+	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
 	for suf in [lang_suffix, fallback]:
 		var fp: String = "res://data/npc_dialogues/" + npc_name + "_talk" + suf + ".txt"
 		if ResourceLoader.exists(fp):
@@ -151,14 +148,12 @@ func _find_dialogue_file(npc_name: String) -> String:
 func _parse_dialogue(content: String, talk_index: int) -> Array:
 	var lines: Array = []
 	var name_map: Dictionary = _extract_name_map(content)
-	# 提取目标talk块
 	var talk_pattern: RegEx = RegEx.new()
 	talk_pattern.compile("\\{\\{talk\\s*:\\s*" + str(talk_index) + "\\}\\{(.*?)\\}\\}")
 	var talk_match: RegExMatch = talk_pattern.search(content)
 	if not talk_match:
 		return []
 	var block: String = talk_match.get_string(1).strip_edges()
-	# 解析每行: speaker_cgindex:"文本"
 	var line_pattern: RegEx = RegEx.new()
 	line_pattern.compile("([a-zA-Z_0-9]+?)(?:_(\\d+))?\\s*:\\s*\"([^\"]*)\"")
 	var matches: Array = line_pattern.search_all(block)
