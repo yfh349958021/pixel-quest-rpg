@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://caffinitynotif001"]
+
+[ext_resource type="Script" path="res://src/ui/affinity_notification.gd" id="1_affnotif"]
+
+[node name="AffinityNotification" type="CanvasLayer"]
+layer = 200
+script = ExtResource("1_affnotif")
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+theme_override_constants/separation = 8
+
+[node name="NPCName" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1
+
+[node name="LevelText" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Panel/VBox"]
+horizontal_alignment = 1

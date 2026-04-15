@@ -15,7 +15,8 @@ var current_map_id: int = 0
 var is_game_started: bool = false
 var player_position: Vector2 = Vector2(640, 360)
 var unlocked_cgs: Array = []
-var total_play_time: int = 0  # 总游玩秒数
+var total_play_time: int = 0
+var player_name: String = "林远"
 
 var _play_time_timer: Timer = null
 
@@ -27,15 +28,12 @@ func _ready() -> void:
 	_play_time_timer.timeout.connect(_on_play_time_tick)
 	add_child(_play_time_timer)
 
-## 开始计时(进入游戏世界)
 func start_play_time() -> void:
 	_play_time_timer.start()
 
-## 停止计时(离开游戏世界)
 func stop_play_time() -> void:
 	_play_time_timer.stop()
 
-## 获取格式化游玩时间
 func get_play_time_str() -> String:
 	var h: int = total_play_time / 3600
 	var m: int = (total_play_time % 3600) / 60
@@ -54,9 +52,11 @@ func start_new_game() -> void:
 	unlocked_cgs.clear()
 	total_play_time = 0
 	is_game_started = true
-	current_map = "lanhe_village"
-	current_map_id = 0
-	player_position = Vector2(640, 360)
+	current_map = "蓝河村"
+	current_map_id = 1  # Maps.MapID.LANHE_VILLAGE
+	player_position = Vector2(20 * 32, 15 * 32)  # 蓝河村中心
+	player_name = "林远"
+	AffinityManager.reset()
 	game_phase_changed.emit(1)
 
 func set_game_phase(value: int) -> void:
@@ -104,6 +104,8 @@ func get_save_data() -> Dictionary:
 		"current_map_id": current_map_id,
 		"player_position": {"x": player_position.x, "y": player_position.y},
 		"total_play_time": total_play_time,
+		"player_name": player_name,
+		"affinities": AffinityManager.get_save_data(),
 	}
 
 func load_save_data(data: Dictionary) -> void:
@@ -112,9 +114,14 @@ func load_save_data(data: Dictionary) -> void:
 	inventory = data.get("inventory", [])
 	unlocked_maps = data.get("unlocked_maps", [])
 	unlocked_cgs = data.get("unlocked_cgs", [])
-	current_map = data.get("current_map", "lanhe_village")
-	current_map_id = data.get("current_map_id", 0)
+	current_map = data.get("current_map", "蓝河村")
+	current_map_id = data.get("current_map_id", 1)
 	var pos = data.get("player_position", {"x": 640, "y": 360})
 	player_position = Vector2(pos.get("x", 640), pos.get("y", 360))
 	total_play_time = data.get("total_play_time", 0)
+	player_name = data.get("player_name", "林远")
+	if player_name == "":
+		player_name = "林远"
 	is_game_started = true
+	if data.has("affinities"):
+		AffinityManager.load_save_data(data["affinities"])

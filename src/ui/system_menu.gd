@@ -1,6 +1,5 @@
 extends CanvasLayer
 ## 系统菜单(ESC暂停菜单)
-## 游戏中按ESC呼出, 主菜单中不显示
 
 @onready var panel: Panel = $Panel
 @onready var vbox: VBoxContainer = $Panel/MarginContainer/VBox
@@ -11,7 +10,9 @@ extends CanvasLayer
 @onready var btn_exit: Button = $Panel/MarginContainer/VBox/BtnExit
 @onready var save_load_ui: Control = $SaveLoadUI
 
-var _mode: String = ""  # "save" / "load" / ""
+var _mode: String = ""
+var _confirm_panel: PanelContainer = null
+var _confirm_slot: int = -1
 
 func _ready() -> void:
 	hide()
@@ -25,8 +26,6 @@ func _ready() -> void:
 	save_load_ui.slot_selected.connect(_on_slot_selected)
 
 func _unhandled_input(event: InputEvent) -> void:
-	# BUG修复: 用_unhandled_input代替_process，避免输入被dialogue_box消费后重复处理
-	# ESC关闭系统菜单
 	if visible and event.is_action_pressed("ui_cancel"):
 		if _mode != "":
 			_on_save_load_back()
@@ -34,7 +33,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			_close()
 		get_viewport().set_input_as_handled()
 
-## 打开系统菜单(从GameWorld调用)
 func open_menu() -> void:
 	_mode = ""
 	save_load_ui.hide()
@@ -76,18 +74,18 @@ func _on_save_load_back() -> void:
 
 func _on_slot_selected(slot: int) -> void:
 	if _mode == "load":
-		# BUG修复: load时应该先检查存档是否存在
 		var info: Dictionary = SaveManager.get_slot_info(slot)
 		if not info.get("exists", false):
-			return  # 空槽位不能读档
+			return
 		if SaveManager.load_from_slot(slot):
 			_close()
 			SaveManager.stop_auto_save()
+			SaveManager.start_auto_save()
 			get_tree().paused = false
 			SceneManager.goto_scene("res://scenes/GameWorld.tscn")
 	elif _mode == "save":
 		if slot == SaveManager.AUTO_SAVE_SLOT:
-			return  # 不允许手动覆盖自动保存
+			return
 		var info: Dictionary = SaveManager.get_slot_info(slot)
 		if info.get("exists", false):
 			_confirm_overwrite(slot)
@@ -100,21 +98,16 @@ func _do_save(slot: int) -> void:
 		_mode = ""
 		save_load_ui.hide()
 
-## 覆盖确认
-var _confirm_panel: PanelContainer = null
-var _confirm_slot: int = -1
-
 func _confirm_overwrite(slot: int) -> void:
 	if _confirm_panel and is_instance_valid(_confirm_panel):
 		_confirm_panel.queue_free()
 	_confirm_slot = slot
 	_confirm_panel = PanelContainer.new()
 	_confirm_panel.name = "ConfirmOverwrite"
-	# BUG修复: CanvasLayer的子节点不能直接用anchors，需要先加到CanvasLayer内部
-	_confirm_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_confirm_panel.set_anchors_preset(Control.PRESET_CENTER)
+	_confirm_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 10)
+	vbox.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	var label := Label.new()
 	label.text = "确定覆盖此存档吗？"
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -131,13 +124,6 @@ func _confirm_overwrite(slot: int) -> void:
 	vbox.add_child(label)
 	vbox.add_child(hbox)
 	_confirm_panel.add_child(vbox)
-	# BUG修复: PanelContainer作为CanvasLayer子节点需要设置正确的anchor
-	# 在CanvasLayer下，Control子节点默认没有容器约束
-	# 需要手动设置全屏+居中
-	_confirm_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_confirm_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_confirm_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
-	vbox.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	add_child(_confirm_panel)
 
 func _on_confirm_yes() -> void:

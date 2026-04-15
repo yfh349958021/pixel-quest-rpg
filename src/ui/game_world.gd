@@ -2,45 +2,52 @@ extends Node2D
 ## 游戏世界场景
 
 @onready var player: CharacterBody2D = $Player
-@onready var npcs_container: Node2D = $NPCs
+@onready var map_container: Node2D = $MapContainer
 @onready var dialogue_box: Control = $DialogueBox
 
 var _system_menu: CanvasLayer = null
 
 func _ready() -> void:
+	# 初始化MapManager
+	MapManager.setup(map_container)
 	# 加载系统菜单
 	var menu_scene: PackedScene = load("res://scenes/SystemMenu.tscn")
 	if menu_scene:
 		_system_menu = menu_scene.instantiate()
 		add_child(_system_menu)
-	
-	# 连接NPC交互信号
-	for npc: Node in npcs_container.get_children():
-		if npc.has_signal("dialogue_requested"):
-			npc.dialogue_requested.connect(_on_npc_dialogue_requested)
-	
-	dialogue_box.dialogue_finished.connect(_on_dialogue_finished)
-	
+	# 连接NPC交互信号(延迟连接，等MapManager生成NPC后)
+	await MapManager.map_loaded
+	_connect_npc_signals()
 	# 设置玩家位置
-	if player:
-		player.position = GameManager.player_position
+	player.position = GameManager.player_position
+	player.freeze_movement(false)
+
+func _connect_npc_signals() -> void:
+	for npc: Node in MapManager.get_current_npcs():
+		if npc.has_signal("dialogue_requested"):
+			if not npc.dialogue_requested.is_connected(_on_npc_dialogue_requested):
+				npc.dialogue_requested.connect(_on_npc_dialogue_requested)
+	# 监听后续地图切换的NPC生成
+	if not MapManager.map_loaded.is_connected(_on_map_loaded):
+		MapManager.map_loaded.connect(_on_map_loaded)
+
+func _on_map_loaded(_map_id: int, _map_name: String) -> void:
+	# 地图切换后重新连接NPC信号
+	await get_tree().process_frame
+	_connect_npc_signals()
 
 func _unhandled_input(event: InputEvent) -> void:
-	# BUG修复: 用_unhandled_input，这样dialogue_box._input消费后这里不会重复处理
 	if not _system_menu or not _system_menu.visible:
-		# 系统菜单未打开时才处理ESC
 		if event.is_action_pressed("ui_cancel"):
 			if dialogue_box.visible:
-				# BUG修复: 对话框打开时ESC应该让dialogue_box自己处理（end_dialogue）
-				# 不需要在这里手动hide，dialogue_box._input已经处理了
-				pass
+				pass  # dialogue_box自己处理
 			else:
-				# 打开系统菜单
 				_system_menu.open_menu()
 				get_viewport().set_input_as_handled()
 
 func _on_npc_dialogue_requested(npc: Node) -> void:
+	player.freeze_movement(true)
 	dialogue_box.show_for_npc(npc)
 
 func _on_dialogue_finished() -> void:
-	pass
+	player.freeze_movement(false)

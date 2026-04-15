@@ -28,13 +28,9 @@ func _update_texts() -> void:
 
 func _on_start_pressed() -> void:
 	GameManager.start_new_game()
-	SaveManager.start_auto_save()
-	GameManager.start_play_time()
-	SceneManager.goto_scene("res://scenes/GameWorld.tscn")
+	SceneManager.goto_scene("res://scenes/NameInput.tscn")
 
 func _on_continue_pressed() -> void:
-	# BUG修复: 直接加载最新存档进入游戏(保持简单)
-	# 如果需要选择槽位，可以改为进入存档选择界面
 	var slot: int = SaveManager.get_latest_slot()
 	if slot >= 0:
 		SaveManager.load_from_slot(slot)
