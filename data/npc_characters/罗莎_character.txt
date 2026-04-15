@@ -1,0 +1,16 @@
+# 高级NPC角色设定：罗莎
+- 年龄：28岁 | 种族：人类 | 性别：女
+- 职业：酒馆老板娘 | 所在地图：暴风酒馆
+- 与主角关系：成熟知心，亦姐亦情人
+
+## 外貌描述（AI生图用）
+28岁人类女性，168cm，丰满曲线。酒红色波浪长发披肩，琥珀色眼睛妩媚动人。白皙皮肤，红唇微翘。黑色紧身胸衣配暗红色长裙，胸前系围裙，手腕戴银镯。
+
+## 生图Prompt
+anime style, 28yo woman, voluptuous 168cm, wavy wine-red hair, amber seductive eyes, fair skin, red lips, black corset with dark red skirt, white apron, silver bracelets, tavern background, warm candlelight, fantasy RPG
+
+## 角色大图（按表情编号）
+rosa_bigimage_01, rosa_bigimage_03, rosa_bigimage_04, rosa_bigimage_08, rosa_bigimage_09
+
+## 性格
+风情万种、成熟妩媚、精明能干。经营酒馆多年见多识广，对主角有姐弟般的关心，暗藏情愫。

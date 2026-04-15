@@ -1,0 +1,16 @@
+# 高级NPC角色设定：安娜
+- 年龄：31岁 | 种族：人类 | 性别：女
+- 职业：光明教会祭司 | 所在地图：风暴教堂
+- 与主角关系：表面严肃，私下温柔
+
+## 外貌描述（AI生图用）
+31岁人类女性，166cm，成熟知性。深红棕色长发盘成优雅发髻，深棕色眼睛温和沉稳。白皙皮肤，微微细纹显成熟韵味。深蓝紫色祭司长袍，金色十字架项链，戴细框眼镜，手持经卷。
+
+## 生图Prompt
+anime style, 31yo priestess, mature 166cm, dark reddish brown hair in elegant bun, warm dark brown eyes, fair skin with subtle maturity, deep blue-purple ceremonial robe, golden cross necklace, thin glasses, holding scripture, church background, candlelight, fantasy RPG
+
+## 角色大图（按表情编号）
+anna_bigimage_01, anna_bigimage_03, anna_bigimage_05, anna_bigimage_06, anna_bigimage_09
+
+## 性格
+沉稳内敛、学识渊博、外冷内热。教会资深祭司，表面公事公办，私下对主角展现温柔一面，暗中帮助主角调查古神真相。

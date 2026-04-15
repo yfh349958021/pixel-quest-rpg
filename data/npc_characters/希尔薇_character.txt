@@ -1,0 +1,16 @@
+# 高级NPC角色设定：希尔薇
+- 年龄：150岁 | 种族：精灵 | 性别：女
+- 职业：精灵射手 | 所在地图：永夜森林边缘
+- 与主角关系：好奇精灵，对主角着迷
+
+## 外貌描述（AI生图用）
+150岁精灵少女，165cm，灵动可爱。淡金色长发编成辫子垂在胸前，翠绿色眼睛好奇明亮。如瓷般白皙皮肤，尖耳微动。绿色精灵短裙配树叶披肩，背后背长弓，赤足踩在树根上。
+
+## 生图Prompt
+anime style, 150yo elf archer girl, lively 165cm, light golden hair in braids, curious bright green eyes, porcelain fair skin, pointed ears twitching, green elf short dress with leaf shoulder cover, longbow on back, barefoot on tree roots, forest edge background, sunlight through trees, fantasy RPG
+
+## 角色大图（按表情编号）
+sylvie_bigimage_01, sylvie_bigimage_03, sylvie_bigimage_04, sylvie_bigimage_06, sylvie_bigimage_09
+
+## 性格
+天真好奇、活泼好动、不谙世事。虽然已经150岁但对精灵来说还是少女，对森林外的一切充满好奇，被主角吸引。

@@ -1,0 +1,16 @@
+# 高级NPC角色设定：米拉
+- 年龄：23岁 | 种族：人类 | 性别：女
+- 职业：吟游诗人 | 所在地图：暴风酒馆
+- 与主角关系：活泼好奇，喜欢逗主角
+
+## 外貌描述（AI生图用）
+23岁人类女性，162cm，灵巧轻盈。蜂蜜色卷发扎成双马尾，金棕色眼睛灵动闪烁。健康肤色，脸颊有雀斑。彩色拼布短裙，白色泡泡袖衬衫，背着鲁特琴，脚踩棕色小靴。
+
+## 生图Prompt
+anime style, 23yo bard girl, lively 162cm, honey-blonde curly hair in twin tails, sparkling golden-brown eyes, healthy skin with freckles, colorful patchwork skirt, white puffy sleeve shirt, lute on back, brown boots, tavern stage background, fantasy RPG
+
+## 角色大图（按表情编号）
+mira_bigimage_01, mira_bigimage_03, mira_bigimage_04, mira_bigimage_06, mira_bigimage_09
+
+## 性格
+开朗活泼、机智幽默、爱恶作剧。走南闯北见多识广，用歌声和笑话掩饰内心的孤独，对主角产生真正的好感。

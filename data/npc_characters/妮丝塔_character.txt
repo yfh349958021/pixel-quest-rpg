@@ -1,0 +1,16 @@
+# 高级NPC角色设定：妮丝塔
+- 年龄：3000岁 | 种族：龙族 | 性别：女
+- 职业：龙族少女(人形) | 所在地图：无尽海·神秘岛屿
+- 与主角关系：高傲龙族，对主角产生兴趣
+
+## 外貌描述（AI生图用）
+外表18岁,实3000岁龙族少女,178cm,高贵冷艳。银白色长发如月光般闪耀至腰际,金色龙瞳竖瞳深邃威严。白皙如雪的皮肤,额头隐约有龙角痕迹。白色龙鳞长裙,背后有半透明龙翼痕迹,周身环绕金色龙纹光点。
+
+## 生图Prompt
+anime style, dragon girl in human form, looks 18yo but 3000 years old, tall 178cm, silver white moonlight hair to waist, golden dragon slit-pupil eyes, snow-white skin, faint dragon horn marks on forehead, white dragon scale dress, semi-transparent dragon wing traces on back, golden dragon pattern light points, mysterious island background, ocean, fantasy RPG
+
+## 角色大图（按表情编号）
+nistar_bigimage_01, nistar_bigimage_02, nistar_bigimage_03, nistar_bigimage_06, nistar_bigimage_09
+
+## 性格
+高傲孤僻、见多识广、对凡人无感但破例。活了三千年的龙族少女，可以化为人形，对主角身上来自另一个宇宙的气息感到好奇。

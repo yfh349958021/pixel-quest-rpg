@@ -1,0 +1,16 @@
+# 高级NPC角色设定：艾琳
+- 年龄：18岁 | 种族：人类 | 性别：女
+- 职业：蓝河村少女 | 所在地图：蓝河村
+- 与主角关系：青梅竹马，芳心暗许
+
+## 外貌描述（AI生图用）
+18岁人类少女，160cm，纤细匀称。及腰亚麻色长发用蓝色丝带扎成低马尾。翠绿色大眼睛，清澈温柔。白皙肌肤，面颊微红。淡蓝色连衣裙，白色围裙，棕色短靴，手持花篮。
+
+## 生图Prompt
+anime style, 18yo girl, slim 160cm, long flaxen hair in low ponytail with blue ribbon, bright green eyes, fair skin with rosy cheeks, light blue dress with white apron, brown boots, holding flower basket, gentle smile, warm sunlight, village background, fantasy RPG
+
+## 角色大图（按表情编号）
+eileen_bigimage_01, eileen_bigimage_03, eileen_bigimage_05, eileen_bigimage_06, eileen_bigimage_09
+
+## 性格
+善良温柔、乐于助人、对主角充满依赖和爱慕。说话柔和，容易害羞，内心坚强。

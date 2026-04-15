@@ -1,0 +1,16 @@
+# 高级NPC角色设定：露娜
+- 年龄：29岁 | 种族：人类 | 性别：女
+- 职业：剑术教官 | 所在地图：风岩城·街道
+- 与主角关系：严厉教官，被主角天赋吸引
+
+## 外貌描述（AI生图用）
+29岁人类女性，173cm，高挑健美。黑色长发束成高马尾，猩红色眼睛凌厉。健康小麦色皮肤，右颊有一道细长剑疤。黑色训练服，白色束腰外衣，腰间佩训练用木剑，手臂绑护腕。
+
+## 生图Prompt
+anime style, 29yo sword instructor, tall athletic 173cm, black hair in high ponytail, fierce crimson eyes, tanned skin with thin scar on right cheek, black training outfit, white belted tunic, wooden training sword at waist, arm wraps, training ground background, fantasy RPG
+
+## 角色大图（按表情编号）
+luna_bigimage_01, luna_bigimage_02, luna_bigimage_03, luna_bigimage_04, luna_bigimage_06, luna_bigimage_09
+
+## 性格
+严厉认真、追求完美、不善表达感情。骑士团首席教官，对主角异常的天赋感到震惊，从师徒关系逐渐升温。

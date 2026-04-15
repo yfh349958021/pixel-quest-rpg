@@ -1,0 +1,16 @@
+# 高级NPC角色设定：阿尔忒弥斯
+- 年龄：20岁 | 种族：兽人 | 性别：女
+- 职业：兽人女战士 | 所在地图：永夜森林边缘
+- 与主角关系：野性难驯，认主角为主
+
+## 外貌描述（AI生图用）
+20岁兽人女性，170cm，健美矫健。火红色高马尾随风飘扬，头顶一对锐利的虎耳，身后粗壮虎尾。琥珀色竖瞳野性十足。古铜色皮肤，健壮身材。兽皮战甲露出腹部，腰间别双斧，手臂缠战斗绷带。
+
+## 生图Prompt
+anime style, 20yo tiger beast warrior girl, athletic muscular 170cm, fiery red high ponytail, sharp tiger ears, thick tiger tail, amber slit-pupil wild eyes, bronze skin, beast skin armor exposing midriff, twin axes at waist, battle bandages on arms, dark forest background, wild pose, fantasy RPG
+
+## 角色大图（按表情编号）
+artemis_bigimage_01, artemis_bigimage_02, artemis_bigimage_03, artemis_bigimage_04, artemis_bigimage_06, artemis_bigimage_08
+
+## 性格
+野性直率、战斗力强、忠心护主。兽人部落的女战士，在战斗中被主角救下后认其为主，像忠诚的野兽一样守护。

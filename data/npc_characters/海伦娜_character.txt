@@ -1,0 +1,16 @@
+# 高级NPC角色设定：海伦娜
+- 年龄：30岁 | 种族：人类 | 性别：女
+- 职业：女船长 | 所在地图：蓝河村·码头
+- 与主角关系：豪爽大姐，保护欲强
+
+## 外貌描述（AI生图用）
+30岁人类女性，172cm，高大健美。深棕色长发扎成高马尾，灰蓝色眼睛锐利深邃。健康小麦色皮肤，下巴有小疤。白色水手衬衫敞开两颗扣，深蓝色船长外套，皮质腰带，长筒靴。
+
+## 生图Prompt
+anime style, 30yo female sea captain, tall athletic 172cm, dark brown high ponytail, sharp grey-blue eyes, tanned skin with small chin scar, white sailor shirt partially unbuttoned, navy captain coat, leather belt, tall boots, ship deck background, ocean, fantasy RPG
+
+## 角色大图（按表情编号）
+helena_bigimage_01, helena_bigimage_03, helena_bigimage_04, helena_bigimage_06, helena_bigimage_08
+
+## 性格
+豪爽直率、胆大心细、爱喝酒讲义气。海上闯荡多年见惯风浪，把主角当弟弟照顾，后期发展为恋人。

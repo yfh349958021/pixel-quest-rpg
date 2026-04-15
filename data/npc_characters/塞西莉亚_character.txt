@@ -1,0 +1,16 @@
+# 高级NPC角色设定：塞西莉亚
+- 年龄：23岁 | 种族：人类 | 性别：女
+- 职业：永恒王国公主 | 所在地图：永恒王国·城镇
+- 与主角关系：意识觉醒的唯一NPC，渴望救赎
+
+## 外貌描述（AI生图用）
+23岁人类女性，167cm，清冷凄美。银白色长发及腰微卷，淡紫色眼睛空洞中透着哀伤。苍白如雪的皮肤，嘴唇微白。白色长裙配灰色披风，头戴冰晶皇冠，胸前挂着已碎裂的王国纹章。
+
+## 生图Prompt
+anime style, 23yo eternal kingdom princess, slender 167cm, silver white wavy long hair to waist, pale purple sorrowful eyes, snow-white pale skin, white long dress with grey cloak, ice crystal tiara, broken kingdom crest necklace, frozen empty town background, melancholic atmosphere, fantasy RPG
+
+## 角色大图（按表情编号）
+cecilia_bigimage_01, cecilia_bigimage_05, cecilia_bigimage_06, cecilia_bigimage_07, cecilia_bigimage_09, cecilia_bigimage_11
+
+## 性格
+温柔而忧伤、渴望自由、内心坚强。永恒王国的公主，是唯一在NPC化中保留了部分自我意识的人，孤独地承受着清醒的痛苦。

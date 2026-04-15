@@ -1,0 +1,16 @@
+# 高级NPC角色设定：妮可
+- 年龄：24岁 | 种族：人类 | 性别：女
+- 职业：舞娘 | 所在地图：暴风酒馆
+- 与主角关系：妩媚多情，真心待主角
+
+## 外貌描述（AI生图用）
+24岁人类女性，164cm，曼妙多姿。深紫色长发如丝般柔顺，紫罗兰色眼睛魅惑迷人。蜜色皮肤，腰肢纤细。半透明紫色薄纱舞裙，腰间缀银铃，赤足戴银脚链，腕带丝带。
+
+## 生图Prompt
+anime style, 24yo dancer girl, graceful 164cm, deep purple silky long hair, violet seductive eyes, honey skin, slim waist, semi-transparent purple chiffon dance dress, silver bells at waist, barefoot with silver anklets, ribbon wristbands, tavern stage background, warm lamp light, fantasy RPG
+
+## 角色大图（按表情编号）
+nico_bigimage_01, nico_bigimage_03, nico_bigimage_04, nico_bigimage_06, nico_bigimage_08, nico_bigimage_10
+
+## 性格
+妩媚多情、看似轻浮实则深情、身世可怜。以舞娘身份谋生，看尽人间冷暖，对主角展现真实的自己。

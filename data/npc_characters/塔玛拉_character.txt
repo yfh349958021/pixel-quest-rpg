@@ -1,0 +1,16 @@
+# 高级NPC角色设定：塔玛拉
+- 年龄：45岁 | 种族：兽人 | 性别：女
+- 职业：兽人女巫医 | 所在地图：永夜森林边缘
+- 与主角关系：智慧慈祥，视主角为预言之子
+
+## 外貌描述（AI生图用）
+45岁兽人女性，160cm，沉稳慈祥。灰白色长发编成粗辫，头顶一对年迈的狐耳已微垂，身后蓬松狐尾。深棕色眼睛充满智慧。深棕色皮肤满是皱纹，佩戴兽骨项链和草药袋，穿棕色长袍。
+
+## 生图Prompt
+anime style, 45yo fox beast shaman woman, calm 160cm, grey-white hair in thick braid, aged drooping fox ears, fluffy fox tail, deep brown wise eyes, dark brown wrinkled skin, bone necklace and herb pouch, brown robe, forest village background, mystical atmosphere, fantasy RPG
+
+## 角色大图（按表情编号）
+tamara_bigimage_01, tamara_bigimage_03, tamara_bigimage_05, tamara_bigimage_06
+
+## 性格
+智慧深沉、神秘莫测、慈祥温和。兽人族最年长的巫医，通晓草药和预言术，对主角的到来有预感。

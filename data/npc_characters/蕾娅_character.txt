@@ -1,0 +1,16 @@
+# 高级NPC角色设定：蕾娅
+- 年龄：19岁 | 种族：兽人 | 性别：女
+- 职业：奴隶少女 | 所在地图：风岩城·市场
+- 与主角关系：被主角解救后忠心耿耿
+
+## 外貌描述（AI生图用）
+19岁兽人少女，155cm，娇小柔弱。淡棕色短发凌乱，头顶有一对毛茸茸的狼耳，背后有细长狼尾。琥珀色大眼睛怯生生。浅棕色皮肤，身形瘦弱。灰色粗布短衣，脖上有已断裂的奴隶项圈痕迹，赤脚。
+
+## 生图Prompt
+anime style, 19yo wolf beast girl, petite 155cm, messy light brown short hair, fluffy wolf ears on head, long thin wolf tail, big amber scared eyes, light brown skin, thin body, grey coarse cloth short dress, broken slave collar mark on neck, barefoot, market background, timid pose, fantasy RPG
+
+## 角色大图（按表情编号）
+reia_bigimage_01, reia_bigimage_05, reia_bigimage_06, reia_bigimage_07, reia_bigimage_09, reia_bigimage_11
+
+## 性格
+胆小温顺、忠诚可靠、渴望自由。被捕奴队从兽人部落掠来，被主角买下解放，从此视主角为生命中最重要的人。

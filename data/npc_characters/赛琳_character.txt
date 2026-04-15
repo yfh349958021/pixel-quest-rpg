@@ -1,0 +1,16 @@
+# 高级NPC角色设定：赛琳
+- 年龄：25岁 | 种族：人类 | 性别：女
+- 职业：女猎人 | 所在地图：北方冰原小径
+- 与主角关系：冷漠寡言，逐渐敞开心扉
+
+## 外貌描述（AI生图用）
+25岁人类女性，167cm，干练矫健。黑色直长发束成低马尾，深灰色眼睛冷峻。小麦色皮肤，嘴唇微抿。白色毛皮大衣，黑色内衬，背着长弓，腰挂箭袋，脚踏雪地靴。
+
+## 生图Prompt
+anime style, 25yo huntress, lean athletic 167cm, straight black hair in low ponytail, cold dark grey eyes, tanned skin, white fur coat, black inner clothes, longbow on back, arrow quiver at waist, snow boots, snowy mountain path background, blizzard, fantasy RPG
+
+## 角色大图（按表情编号）
+serine_bigimage_01, serine_bigimage_02, serine_bigimage_03, serine_bigimage_05, serine_bigimage_09
+
+## 性格
+沉默寡言、独立孤僻、内心柔软。独自在冰原狩猎多年，不信任任何人，被主角的坚持和真诚打动。

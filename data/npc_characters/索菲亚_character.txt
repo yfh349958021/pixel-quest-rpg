@@ -1,0 +1,16 @@
+# 高级NPC角色设定：索菲亚
+- 年龄：35岁 | 种族：人类 | 性别：女
+- 职业：女商人 | 所在地图：金贸王国·商业区
+- 与主角关系：八面玲珑，对主角另眼相看
+
+## 外貌描述（AI生图用）
+35岁人类女性，170cm，丰满成熟。黑棕色波浪卷发披肩，深绿色眼睛精明锐利。健康肤色，红唇艳丽。深红色丝绸长裙，黑色绒面披风，戴翡翠耳环和项链，手持金边账本。
+
+## 生图Prompt
+anime style, 35yo merchant queen, tall voluptuous 170cm, black-brown wavy curly hair, shrewd deep green eyes, healthy skin, vivid red lips, dark red silk dress, black velvet cloak, emerald earrings and necklace, golden ledger in hand, trading district background, fantasy RPG
+
+## 角色大图（按表情编号）
+sophia_bigimage_01, sophia_bigimage_03, sophia_bigimage_04, sophia_bigimage_06, sophia_bigimage_08, sophia_bigimage_09
+
+## 性格
+精明圆滑、世故老练、内心孤独。金贸王国最大的商队首领，阅人无数，唯独对主角另眼相看，欣赏他不以利益为先的品格。

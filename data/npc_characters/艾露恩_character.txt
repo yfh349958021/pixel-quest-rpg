@@ -1,0 +1,16 @@
+# 高级NPC角色设定：艾露恩
+- 年龄：280岁 | 种族：精灵 | 性别：女
+- 职业：精灵大魔法师 | 所在地图：永夜森林深处
+- 与主角关系：高傲蔑视，逐渐认可主角
+
+## 外貌描述（AI生图用）
+280岁精灵女性，175cm，空灵绝美。银绿色长发如月光般流淌至脚踝，翡翠绿眼睛古老而深邃。如玉般的白皙皮肤，尖耳细长。白色丝绸长袍绣藤蔓花纹，赤足踏在光圈上，周身环绕魔法粒子。
+
+## 生图Prompt
+anime style, 280yo elf grand sorceress, ethereal 175cm, silver-green hair like moonlight to ankles, ancient emerald green eyes, jade-like pale skin, long pointed ears, white silk robe with vine embroidery, barefoot on light circle, magic particles surrounding, deep forest background, mystical atmosphere, fantasy RPG
+
+## 角色大图（按表情编号）
+elune_bigimage_01, elune_bigimage_02, elune_bigimage_03, elune_bigimage_05, elune_bigimage_06, elune_bigimage_09
+
+## 性格
+高傲冷漠、蔑视其他种族、实力深不可测。精灵族的大魔法师，对人类等种族嗤之以鼻，但主角的免疫体质和独特气质让她破例。

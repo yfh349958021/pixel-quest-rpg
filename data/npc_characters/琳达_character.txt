@@ -1,0 +1,16 @@
+# 高级NPC角色设定：琳达
+- 年龄：22岁 | 种族：兽人 | 性别：女
+- 职业：女驯兽师 | 所在地图：永夜森林边缘
+- 与主角关系：温柔但坚韧，信任主角
+
+## 外貌描述（AI生图用）
+22岁兽人女性，163cm，柔和温婉。浅棕色波浪长发，头顶一对毛茸茸的猫耳，身后蓬松猫尾。翠绿色眼睛温柔如水。浅棕色皮肤，身形纤细。棕色皮衣配绿色斗篷，肩上常停着一只小鸟，腰挂驯兽鞭。
+
+## 生图Prompt
+anime style, 22yo cat beast tamer girl, gentle 163cm, wavy light brown hair, fluffy cat ears, puffy cat tail, soft emerald green eyes, light brown skin, slender, brown leather clothes with green cloak, small bird on shoulder, beast taming whip at waist, forest edge background, fantasy RPG
+
+## 角色大图（按表情编号）
+linda_bigimage_01, linda_bigimage_03, linda_bigimage_05, linda_bigimage_06, linda_bigimage_09
+
+## 性格
+温柔耐心、坚韧不拔、热爱动物。兽人族中罕见的驯兽师，能与魔兽沟通，对主角的善良印象深刻。

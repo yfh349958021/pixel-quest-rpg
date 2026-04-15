@@ -1,0 +1,16 @@
+# 高级NPC角色设定：梅林达
+- 年龄：33岁 | 种族：人类 | 性别：女
+- 职业：女法师 | 所在地图：风岩城·法师塔
+- 与主角关系：高傲冷漠，被主角免疫体质震惊
+
+## 外貌描述（AI生图用）
+33岁人类女性，172cm，清冷高贵。银白色长发及腰微卷，冰紫色眼睛深邃莫测。苍白如月的皮肤，气质超凡脱俗。深蓝色法师长袍绣银色符文，宽大兜帽，手持水晶法杖，指尖有魔法光点。
+
+## 生图Prompt
+anime style, 33yo sorceress, tall ethereal 172cm, silver white wavy long hair to waist, ice purple mysterious eyes, pale moon-like skin, deep blue mage robe with silver rune embroidery, large hood, crystal staff, magic sparkles on fingertips, mage tower background, arcane circles, fantasy RPG
+
+## 角色大图（按表情编号）
+melinda_bigimage_01, melinda_bigimage_02, melinda_bigimage_03, melinda_bigimage_06, melinda_bigimage_09
+
+## 性格
+高傲孤僻、学识超群、不近人情。高级法师，对所有凡俗事务不感兴趣，发现主角对魔法和精神控制免疫后，将其视为最重要的研究对象。

@@ -1,0 +1,16 @@
+# 高级NPC角色设定：凯瑟琳
+- 年龄：21岁 | 种族：人类 | 性别：女
+- 职业：风暴公主 | 所在地图：金贸王国·商业区
+- 与主角关系：伪装出游，与主角不打不相识
+
+## 外貌描述（AI生图用）
+21岁人类女性，164cm，俏丽灵动。深蓝色长发扎成侧马尾，海蓝色眼睛机灵活泼。白皙皮肤，脸上有几颗雀斑。蓝色贵族骑装，白色披风，头戴蓝宝石发夹，腰佩装饰短剑。
+
+## 生图Prompt
+anime style, 21yo storm kingdom princess, cute 164cm, dark blue hair in side ponytail, playful sea blue eyes, fair skin with freckles, blue noble riding outfit, white cape, sapphire hair clip, decorative short sword, trading district background, bright daylight, fantasy RPG
+
+## 角色大图（按表情编号）
+catherine_bigimage_01, catherine_bigimage_02, catherine_bigimage_03, catherine_bigimage_04, catherine_bigimage_06, catherine_bigimage_09
+
+## 性格
+活泼开朗、古灵精怪、有公主的骄傲但不娇气。风暴王国的公主，偷偷溜出来游历大陆，与主角偶遇后产生好感。

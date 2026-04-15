@@ -1,0 +1,16 @@
+# 高级NPC角色设定：薇拉
+- 年龄：21岁 | 种族：人类 | 性别：女
+- 职业：药剂师 | 所在地图：蓝河村
+- 与主角关系：安静内敛，默默关注主角
+
+## 外貌描述（AI生图用）
+21岁人类女性，158cm，娇小瘦弱。淡紫色长发及腰，浅紫色眼睛总是半眯着。苍白皮肤，眼下有淡淡黑眼圈。灰白色长袍，腰间挂满药瓶，背着大药箱，手指沾着药渍。
+
+## 生图Prompt
+anime style, 21yo apothecary girl, petite 158cm, long pale lavender hair to waist, half-closed light purple eyes, pale skin with dark circles, grey-white robe, many potion bottles at waist, large medicine box on back, stained fingers, herbal shop background, fantasy RPG
+
+## 角色大图（按表情编号）
+vera_bigimage_01, vera_bigimage_03, vera_bigimage_05, vera_bigimage_06, vera_bigimage_09
+
+## 性格
+安静内向、博学多才、不善社交。沉迷药草研究，话少但观察力极强，对主角的关注藏在日常的送药和叮嘱中。

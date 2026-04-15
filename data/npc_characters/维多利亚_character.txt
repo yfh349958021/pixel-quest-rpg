@@ -1,0 +1,16 @@
+# 高级NPC角色设定：维多利亚
+- 年龄：27岁 | 种族：人类 | 性别：女
+- 职业：女侦探 | 所在地图：风岩城·市场
+- 与主角关系：理性冷静，对主角充满好奇
+
+## 外貌描述（AI生图用）
+27岁人类女性，165cm，干练利落。深棕色短发齐耳，深紫色眼睛锐利如鹰。白皙皮肤，嘴唇微薄。深褐色侦探风衣，内搭白色衬衫，戴单片眼镜，脖挂怀表链。
+
+## 生图Prompt
+anime style, 27yo female detective, sharp 165cm, short dark brown hair, deep purple hawk-like eyes, fair skin, thin lips, dark brown detective coat, white shirt, monocle, pocket watch chain, market alley background, mystery atmosphere, fantasy RPG
+
+## 角色大图（按表情编号）
+victoria_bigimage_01, victoria_bigimage_02, victoria_bigimage_03, victoria_bigimage_06, victoria_bigimage_09
+
+## 性格
+聪明理性、观察力极强、不轻易相信人。作为风岩城唯一的女侦探，对主角身上的谜团充满探究欲，逐渐从调查对象变成信任之人。

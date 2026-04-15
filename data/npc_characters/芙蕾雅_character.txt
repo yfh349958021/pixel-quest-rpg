@@ -1,0 +1,16 @@
+# 高级NPC角色设定：芙蕾雅
+- 年龄：45岁 | 种族：矮人 | 性别：女
+- 职业：女铁匠 | 所在地图：风岩城·市场
+- 与主角关系：脾气火爆，被主角真诚打动
+
+## 外貌描述（AI生图用）
+45岁矮人女性，135cm，矮壮结实。赤褐色短发乱蓬蓬的，琥珀色眼睛炯炯有神。古铜色皮肤，手臂肌肉发达。棕色皮围裙，短袖露出肌肉手臂，脖挂铁项链，满脸煤灰。
+
+## 生图Prompt
+anime style, 45yo dwarf female blacksmith, short stout 135cm, messy auburn short hair, bright amber eyes, bronze skin, muscular arms, brown leather apron, short sleeves showing muscles, iron chain necklace, soot on face, forge background, anvil and hammer, fire light, fantasy RPG
+
+## 角色大图（按表情编号）
+freya_bigimage_01, freya_bigimage_02, freya_bigimage_03, freya_bigimage_04, freya_bigimage_06
+
+## 性格
+暴躁直爽、手艺精湛、重情重义。矮人中铁匠世家的传人，看不上人类的手艺，但被主角的虚心请教和独特知识折服。

@@ -1,0 +1,16 @@
+# 高级NPC角色设定：艾米
+- 年龄：19岁 | 种族：人类 | 性别：女
+- 职业：女仆 | 所在地图：风岩城·宅邸
+- 与主角关系：温顺乖巧，暗恋主角
+
+## 外貌描述（AI生图用）
+19岁人类女性，157cm，娇小可爱。浅棕色齐肩短发，淡棕色眼睛温柔如鹿。白皙皮肤，面颊常带微笑。黑白女仆装，白色围裙，头戴蕾丝女仆帽，手持羽毛掸子。
+
+## 生图Prompt
+anime style, 19yo maid girl, petite cute 157cm, light brown shoulder-length hair, gentle deer-like light brown eyes, fair skin with gentle smile, black and white maid outfit, white apron, lace maid headdress, feather duster, noble mansion interior background, fantasy RPG
+
+## 角色大图（按表情编号）
+amy_bigimage_01, amy_bigimage_03, amy_bigimage_05, amy_bigimage_06, amy_bigimage_09, amy_bigimage_10
+
+## 性格
+温顺乖巧、细心体贴、不善于表达。在贵族宅邸当女仆，被主角从意外中救出后默默暗恋，做事更加尽心。

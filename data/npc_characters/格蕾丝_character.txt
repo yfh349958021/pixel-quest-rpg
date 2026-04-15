@@ -1,0 +1,16 @@
+# 高级NPC角色设定：格蕾丝
+- 年龄：26岁 | 种族：人类 | 性别：女
+- 职业：女骑士 | 所在地图：风岩城·街道
+- 与主角关系：初期敌视，后被主角折服
+
+## 外貌描述（AI生图用）
+26岁人类女性，170cm，英姿飒爽。银白色长发束成发髻，冰蓝色眼睛冷冽。白皙皮肤，五官端正刚毅。银色骑士铠甲，白色披风，腰悬长剑，胸甲刻风暴王国纹章。
+
+## 生图Prompt
+anime style, 26yo female knight, tall 170cm, silver white hair in bun, cold ice blue eyes, fair skin, dignified features, silver knight armor, white cape, longsword at waist, storm kingdom crest on breastplate, castle street background, fantasy RPG
+
+## 角色大图（按表情编号）
+grace_bigimage_01, grace_bigimage_02, grace_bigimage_03, grace_bigimage_05, grace_bigimage_09
+
+## 性格
+正直严肃、责任感强、不善表达。身为骑士团精英，起初对来历不明的主角充满戒心，多次并肩作战后被其品格打动。

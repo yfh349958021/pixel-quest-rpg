@@ -1,0 +1,16 @@
+# 高级NPC角色设定：伊莎贝拉
+- 年龄：22岁 | 种族：人类 | 性别：女
+- 职业：光明圣女 | 所在地图：金贸王国·商业区
+- 与主角关系：神圣不可侵犯，内心渴望自由
+
+## 外貌描述（AI生图用）
+22岁人类女性，168cm，优雅端庄。铂金色长发如瀑布般垂至腰际，翡翠绿眼睛深邃神秘。白皙如瓷的皮肤，精致五官。白色长裙配金色圣带，头戴金色光环冠冕，手持金色权杖。
+
+## 生图Prompt
+anime style, 22yo holy maiden, elegant 168cm, platinum blonde hair to waist, emerald green deep eyes, porcelain white skin, refined features, white long dress with golden sash, golden halo crown, golden scepter, temple background, divine light, fantasy RPG
+
+## 角色大图（按表情编号）
+isabella_bigimage_01, isabella_bigimage_03, isabella_bigimage_05, isabella_bigimage_06, isabella_bigimage_09, isabella_bigimage_11
+
+## 性格
+端庄高贵、温柔聪慧、内心渴望自由却被身份束缚。身为光明王国圣女，对外人保持距离，但被主角的真诚打动。

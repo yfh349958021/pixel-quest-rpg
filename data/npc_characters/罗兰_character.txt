@@ -1,0 +1,16 @@
+# 高级NPC角色设定：罗兰
+- 年龄：26岁 | 种族：人类 | 性别：女
+- 职业：永恒王国侍女 | 所在地图：永恒王国·城镇
+- 与主角关系：半NPC化，偶尔闪回意识
+
+## 外貌描述（AI生图用）
+26岁人类女性，162cm，柔弱苍白。浅灰色短发齐肩，灰蓝色眼睛大多时候空洞无神。苍白到近乎透明的皮肤。灰白色侍女装，白色围裙，胸前别永恒王国纹章，动作机械。
+
+## 生图Prompt
+anime style, 26yo eternal kingdom maid, fragile 162cm, light grey shoulder-length hair, empty grey-blue eyes, nearly transparent pale skin, grey-white maid dress, white apron, eternal kingdom crest brooch, mechanical posture, frozen grey town background, eerie atmosphere, fantasy RPG
+
+## 角色大图（按表情编号）
+roland_bigimage_01, roland_bigimage_03, roland_bigimage_05, roland_bigimage_06, roland_bigimage_09
+
+## 性格
+温顺但空洞、偶尔清醒、对主角有模糊记忆。永恒王国的侍女，大部分时间NPC化，但偶尔会短暂恢复意识。

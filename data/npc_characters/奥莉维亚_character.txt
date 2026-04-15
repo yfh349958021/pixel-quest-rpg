@@ -1,0 +1,16 @@
+# 高级NPC角色设定：奥莉维亚
+- 年龄：20岁 | 种族：人类 | 性别：女
+- 职业：贵族千金 | 所在地图：风岩城·街道
+- 与主角关系：刁蛮任性，被主角征服
+
+## 外貌描述（AI生图用）
+20岁人类女性，162cm，娇小精致。浅金色卷发扎成双丸子头，天蓝色大眼睛水汪汪的。白皙皮肤，唇若樱桃。粉色蕾丝长裙，白色丝绒披肩，头戴珍珠发饰，手持蕾丝阳伞。
+
+## 生图Prompt
+anime style, 20yo noble girl, petite 162cm, light golden curly hair in twin buns, big sky blue eyes, porcelain skin, cherry lips, pink lace dress, white velvet shawl, pearl hair ornament, lace parasol, noble mansion garden background, fantasy RPG
+
+## 角色大图（按表情编号）
+olivia_bigimage_01, olivia_bigimage_02, olivia_bigimage_03, olivia_bigimage_04, olivia_bigimage_06, olivia_bigimage_09
+
+## 性格
+娇纵任性、傲气十足、内心单纯。公爵之女，从小被宠大，起初看不起平民出身的主角，后来被其能力和人格魅力折服。

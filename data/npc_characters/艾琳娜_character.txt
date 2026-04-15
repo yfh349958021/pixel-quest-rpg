@@ -1,0 +1,16 @@
+# 高级NPC角色设定：艾琳娜
+- 年龄：24岁 | 种族：人类 | 性别：女
+- 职业：风暴教会修女 | 所在地图：风暴教堂
+- 与主角关系：一见钟情，内心信仰与欲望挣扎
+
+## 外貌描述（AI生图用）
+24岁人类女性，165cm，清瘦优雅。金色长发编成发辫垂于胸前，天蓝色眼睛纯净如水。白皙皮肤，气质圣洁。白色修女长袍，蓝色围巾，胸前挂风暴神徽章，手持经书。
+
+## 生图Prompt
+anime style, 24yo nun, slender 165cm, blonde hair in braids, sky blue innocent eyes, fair pale skin, holy aura, white nun habit with blue sash, storm god emblem necklace, holding prayer book, church interior, stained glass light, fantasy RPG
+
+## 角色大图（按表情编号）
+eilena_bigimage_01, eilena_bigimage_03, eilena_bigimage_05, eilena_bigimage_06, eilena_bigimage_09, eilena_bigimage_11
+
+## 性格
+虔诚温柔、内心善良、信仰坚定但逐渐动摇。对主角一见钟情后陷入信仰与爱情的矛盾，最终选择跟随内心。

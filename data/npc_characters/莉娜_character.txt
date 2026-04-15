@@ -1,0 +1,16 @@
+# 高级NPC角色设定：莉娜
+- 年龄：22岁 | 种族：人类 | 性别：女
+- 职业：女盗贼 | 所在地图：风岩城·暗巷
+- 与主角关系：傲娇，从看不起到信任主角
+
+## 外貌描述（AI生图用）
+22岁人类女性，163cm，矫健灵活。黑色短发凌乱利落，翠绿色猫眼锐利明亮。小麦色皮肤，嘴角微翘带坏笑。黑色紧身皮衣，暗红色斗篷，腰间别匕首，腿绑护腿。
+
+## 生图Prompt
+anime style, 22yo female thief, athletic 163cm, messy short black hair, sharp green cat eyes, tanned skin, mischievous smirk, black tight leather outfit, dark red cloak, daggers at waist, leg wraps, dark alley background, moonlight, fantasy RPG
+
+## 角色大图（按表情编号）
+lina_bigimage_01, lina_bigimage_02, lina_bigimage_03, lina_bigimage_04, lina_bigimage_06, lina_bigimage_09
+
+## 性格
+嘴硬心软、独立强势、狡黠机灵。表面不屑一顾实则暗中关心，被主角多次帮助后逐渐敞开心扉。
