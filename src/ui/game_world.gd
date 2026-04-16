@@ -22,6 +22,7 @@ func _ready() -> void:
 	
 	# 连接玩家交互信号 → 玩家按空格时触发NPC对话
 	player.interact_requested.connect(_on_player_interact)
+	dialogue_box.dialogue_finished.connect(_on_dialogue_finished)
 	
 	# 设置玩家位置
 	player.position = GameManager.player_position

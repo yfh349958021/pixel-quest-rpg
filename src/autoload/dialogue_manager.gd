@@ -20,6 +20,9 @@ func _ready() -> void:
 	add_child(_audio_player)
 
 func get_dialogue_options(npc_name: String) -> Array:
+	push_warning("[DialogueManager] get_dialogue_options called with npc_name: ", npc_name)
+	var _max_talk_dbg: int = get_max_talk_count(npc_name)
+	push_warning("[DialogueManager] max_talk_count: ", _max_talk_dbg, ", game_phase: ", GameManager.game_phase)
 	var options: Array = []
 	var max_talk: int = get_max_talk_count(npc_name)
 	var phase: int = GameManager.game_phase
@@ -198,6 +201,7 @@ func get_max_talk_count(npc_name: String) -> int:
 		return 0
 	var content: String = file.get_as_text()
 	file.close()
+	push_warning("[DialogueManager] get_max_talk_count for: ", npc_name, " file_path: ", file_path)
 	var pattern: RegEx = RegEx.new()
 	pattern.compile("\\{talk\\s*:\\s*(\\d+)\\}\\{")
 	var matches: Array = pattern.search_all(content)
