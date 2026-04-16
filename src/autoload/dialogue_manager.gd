@@ -118,13 +118,15 @@ func end_dialogue() -> void:
 	dialogue_ended.emit()
 
 func _get_portrait_path(speaker_key: String, cg_index: String) -> String:
+	# 使用NPC中文名和表情编号查找立绘
 	if speaker_key == "" or speaker_key == "actor":
 		return ""
-	if cg_index != "":
-		var path: String = LocalizationManager.find_portrait(speaker_key + "_bigimage_" + cg_index)
-		if path != "":
-			return path
-	return LocalizationManager.find_portrait(speaker_key + "_bigimage_01")
+	# 如果speaker_key是英文名，尝试用当前NPC中文名
+	var npc_name: String = current_npc_name
+	if npc_name == "":
+		npc_name = speaker_key
+	var expr_id: String = cg_index if cg_index != "" else "01"
+	return LocalizationManager.find_portrait(npc_name, expr_id)
 
 func _play_dialogue_audio(line: Dictionary) -> void:
 	_audio_player.stop()

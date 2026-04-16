@@ -15,6 +15,22 @@ signal map_loaded(map_id: int, map_name: String)
 signal map_transition_started()
 signal map_transition_finished()
 
+## 地图名 → 背景图路径
+const MAP_BACKGROUNDS: Dictionary = {
+	1: "res://assets/tilesets/蓝河村.png",
+	2: "res://assets/tilesets/村外平原.png",
+	3: "res://assets/tilesets/风岩城街道.png",
+	4: "res://assets/tilesets/风岩城市场.png",
+	5: "res://assets/tilesets/酒馆.png",
+	6: "res://assets/tilesets/教堂.png",
+	7: "res://assets/tilesets/北方冰原.png",
+	8: "res://assets/tilesets/永恒王国.png",
+	9: "res://assets/tilesets/永夜森林边缘.png",
+	10: "res://assets/tilesets/永夜森林深处.png",
+	11: "res://assets/tilesets/金贸王国.png",
+	12: "res://assets/tilesets/无尽海岛屿.png",
+}
+
 func setup(container: Node2D) -> void:
 	_map_container = container
 
@@ -29,7 +45,7 @@ func load_map(map_id: int) -> void:
 	current_map_id = map_id
 	GameManager.current_map_id = map_id
 	GameManager.current_map = map_data.get("name_cn", "")
-	_create_background(map_data)
+	_create_background(map_data, map_id)
 	_create_boundary_walls(map_data)
 	_spawn_npcs(map_data)
 	_create_transfers(map_data)
@@ -43,36 +59,39 @@ func _clear_map() -> void:
 	_transfer_container = null
 	_wall_body = null
 
-func _create_background(map_data: Dictionary) -> void:
+func _create_background(map_data: Dictionary, map_id: int) -> void:
 	var size_x: int = map_data.get("size_x", 40) * TILE_SIZE
 	var size_y: int = map_data.get("size_y", 30) * TILE_SIZE
+	
+	# 尝试加载实际背景图
+	var bg_path: String = MAP_BACKGROUNDS.get(map_id, "")
+	if bg_path != "" and ResourceLoader.exists(bg_path):
+		var tex: Texture2D = load(bg_path)
+		if tex:
+			var sprite := Sprite2D.new()
+			sprite.name = "MapBackground"
+			sprite.texture = tex
+			sprite.scale = Vector2(
+				float(size_x) / tex.get_width(),
+				float(size_y) / tex.get_height()
+			)
+			sprite.z_index = -10
+			_map_container.add_child(sprite)
+			# 地图名称标签
+			var label := Label.new()
+			label.text = map_data.get("name_cn", "")
+			label.position = Vector2(10, 10)
+			label.z_index = 5
+			_map_container.add_child(label)
+			return
+	
+	# 回退：彩色背景
 	var bg := ColorRect.new()
 	bg.name = "MapBackground"
 	bg.size = Vector2(size_x, size_y)
 	bg.color = _get_map_color(map_data.get("tileset", ""))
 	bg.z_index = -10
 	_map_container.add_child(bg)
-	# 网格线
-	var grid := Line2D.new()
-	grid.name = "Grid"
-	grid.width = 1.0
-	grid.default_color = Color(1, 1, 1, 0.05)
-	grid.z_index = -9
-	var tiles_x: int = map_data.get("size_x", 40)
-	var tiles_y: int = map_data.get("size_y", 30)
-	for x in range(tiles_x + 1):
-		grid.add_point(Vector2(x * TILE_SIZE, 0))
-		grid.add_point(Vector2(x * TILE_SIZE, size_y))
-	for y in range(tiles_y + 1):
-		grid.add_point(Vector2(0, y * TILE_SIZE))
-		grid.add_point(Vector2(size_x, y * TILE_SIZE))
-	_map_container.add_child(grid)
-	# 地图名称标签
-	var label := Label.new()
-	label.text = map_data.get("name_cn", "")
-	label.position = Vector2(10, 10)
-	label.z_index = 5
-	_map_container.add_child(label)
 
 func _get_map_color(tileset: String) -> Color:
 	match tileset:
@@ -130,15 +149,34 @@ func _spawn_npcs(map_data: Dictionary) -> void:
 		var body_cs := CollisionShape2D.new()
 		body_cs.shape = body_shape
 		npc.add_child(body_cs)
+		# 行走图sprite
 		var sprite := Sprite2D.new()
 		sprite.name = "Sprite2D"
-		var is_core: bool = npc_data.get("is_core", false)
-		sprite.modulate = Color(0.8, 0.5, 0.9, 1) if is_core else Color(0.5, 0.5, 0.5, 1)
-		sprite.scale = Vector2(1.5, 1.5)
+		sprite.scale = Vector2(2.0, 2.0)
+		var npc_name: String = npc_data["name"]
+		var sprite_path: String = "res://assets/characters/npcs/%s.png" % npc_name
+		if ResourceLoader.exists(sprite_path):
+			sprite.texture = load(sprite_path)
+			# 设置hframes/vframes为spritesheet格式 (4x4)
+			sprite.hframes = 4
+			sprite.vframes = 4
+			sprite.frame = 0  # 默认朝下
+		else:
+			# 回退：彩色方块
+			var is_core: bool = npc_data.get("is_core", false)
+			sprite.modulate = Color(0.8, 0.5, 0.9, 1) if is_core else Color(0.5, 0.5, 0.5, 1)
 		npc.add_child(sprite)
+		# NPC名称标签
+		var label := Label.new()
+		label.name = "NameLabel"
+		label.text = npc_name
+		label.position = Vector2(-20, -24)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.z_index = 5
+		npc.add_child(label)
 		npc.set_script(npc_script)
-		npc.npc_name = npc_data["name"]
-		npc.is_core_character = is_core
+		npc.npc_name = npc_name
+		npc.is_core_character = npc_data.get("is_core", false)
 		_npc_container.add_child(npc)
 	_map_container.add_child(_npc_container)
 

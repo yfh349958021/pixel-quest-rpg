@@ -53,19 +53,25 @@ func find_audio(base_name: String) -> String:
 				return p
 	return ""
 
-func find_portrait(base_name: String) -> String:
-	# BUG修复: 立绘也支持语言回退
-	var lang_suffix: String = SettingsManager.get_language_suffix()
-	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
+func find_portrait(npc_name: String, expression_id: String = "01") -> String:
+	"""查找NPC立绘路径
+	npc_name: NPC中文名
+	expression_id: 表情编号 (01~11)
+	返回完整路径或空字符串
+	"""
+	var portrait_dir: String = "res://assets/portraits/" + npc_name
 	for ext: String in [".png", ".jpg", ".webp"]:
-		for suf: String in [lang_suffix, fallback, ""]:
-			var p: String = "res://assets/sprites/portraits/" + base_name + suf + ext
-			if ResourceLoader.exists(p):
-				return p
+		var p: String = portrait_dir + "/" + expression_id + ext
+		if ResourceLoader.exists(p):
+			return p
+	# 回退到默认表情
+	for ext: String in [".png", ".jpg", ".webp"]:
+		var p: String = portrait_dir + "/01" + ext
+		if ResourceLoader.exists(p):
+			return p
 	return ""
 
 func find_pixel_image(base_name: String) -> String:
-	# BUG修复: 像素图也支持语言回退
 	var lang_suffix: String = SettingsManager.get_language_suffix()
 	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
 	for ext: String in [".png", ".jpg", ".webp"]:
