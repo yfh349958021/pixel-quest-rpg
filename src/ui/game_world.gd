@@ -6,12 +6,12 @@ extends Node2D
 @onready var dialogue_box: Control = $DialogueBox
 
 var _system_menu: CanvasLayer = null
+var _ready_done: bool = false
 
 func _ready() -> void:
-	# 初始化MapManager并加载当前地图
+	# 初始化MapManager并加载当前地图（同步）
 	MapManager.setup(map_container)
 	MapManager.load_map(GameManager.current_map_id)
-	await MapManager.map_loaded
 	# 加载系统菜单
 	var menu_scene: PackedScene = load("res://scenes/SystemMenu.tscn")
 	if menu_scene:
@@ -22,7 +22,8 @@ func _ready() -> void:
 	# 设置玩家位置
 	player.position = GameManager.player_position
 	player.freeze_movement(false)
-	# 监听后续地图切换
+	_ready_done = true
+	# 监听后续地图切换（异步）
 	MapManager.map_loaded.connect(_on_map_loaded)
 
 func _connect_npc_signals() -> void:
@@ -36,13 +37,17 @@ func _on_map_loaded(_map_id: int, _map_name: String) -> void:
 	_connect_npc_signals()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _system_menu or not _system_menu.visible:
-		if event.is_action_pressed("ui_cancel"):
-			if dialogue_box.visible:
-				pass  # dialogue_box自己处理
-			else:
-				_system_menu.open_menu()
-				get_viewport().set_input_as_handled()
+	if not _ready_done:
+		return
+	if not _system_menu:
+		return
+	if event.is_action_pressed("ui_cancel"):
+		if _system_menu.visible:
+			return  # system_menu自己处理关闭
+		if dialogue_box.visible:
+			return  # dialogue_box自己处理
+		_system_menu.open_menu()
+		get_viewport().set_input_as_handled()
 
 func _on_npc_dialogue_requested(npc: Node) -> void:
 	player.freeze_movement(true)

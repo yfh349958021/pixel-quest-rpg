@@ -18,6 +18,8 @@ var _anim_frame: int = 0
 var _is_moving: bool = false
 var _nearby_npcs: Array = []
 var _current_npc: Node2D = null
+var _click_target: Vector2 = Vector2.ZERO  # 鼠标点击目标位置
+var _has_click_target: bool = false
 
 signal interact_requested(npc: Node2D)
 
@@ -43,8 +45,28 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var input_dir := Vector2.ZERO
+	
+	# 键盘输入优先
 	input_dir.x = Input.get_axis("move_left", "move_right")
 	input_dir.y = Input.get_axis("move_up", "move_down")
+	
+	# 如果有键盘输入，取消鼠标点击目标
+	if input_dir.length() > 0.1:
+		_has_click_target = false
+	
+	# 鼠标点击移动
+	if _has_click_target:
+		var to_target := _click_target - position
+		var dist := to_target.length()
+		if dist < 5.0:
+			_has_click_target = false
+			_is_moving = false
+			velocity = Vector2.ZERO
+			_anim_frame = 0
+			sprite.frame_coords = Vector2i(0, _direction)
+			move_and_slide()
+			return
+		input_dir = to_target.normalized()
 	
 	if input_dir.length() > 0.1:
 		_is_moving = true
@@ -77,6 +99,17 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func _input(event: InputEvent) -> void:
+	if _frozen:
+		return
+	# 鼠标左键点击移动
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		# 检查是否点击在UI上（是的话不处理）
+		if event.position.y > get_viewport_rect().size.y - 250:
+			return  # 点击在对话框区域，忽略
+		_click_target = camera.get_global_mouse_position()
+		_has_click_target = true
+
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.name.begins_with("NPC_"):
 		_nearby_npcs.append(body)
@@ -96,6 +129,7 @@ func freeze_movement(freeze: bool) -> void:
 	_frozen = freeze
 	if freeze:
 		velocity = Vector2.ZERO
+		_has_click_target = false
 
 func _load_texture_from_path(path: String) -> Texture2D:
 	var file_path: String = path.replace("res://", ProjectSettings.globalize_path("res://"))
