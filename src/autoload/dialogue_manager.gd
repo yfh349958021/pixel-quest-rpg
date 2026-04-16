@@ -78,7 +78,7 @@ func _extract_npc_en_name(npc_name: String) -> void:
 	var first_line: String = file.get_line()
 	file.close()
 	var pattern: RegEx = RegEx.new()
-	pattern.compile("\"([a-zA-Z_0-9]+)\":\"[^\"]+\"")
+	pattern.compile('"([a-zA-Z_0-9]+)":"[^"]*"')
 	var m: RegExMatch = pattern.search(first_line)
 	if m:
 		current_npc_en_name = m.get_string(1)
@@ -118,10 +118,8 @@ func end_dialogue() -> void:
 	dialogue_ended.emit()
 
 func _get_portrait_path(speaker_key: String, cg_index: String) -> String:
-	# 使用NPC中文名和表情编号查找立绘
 	if speaker_key == "" or speaker_key == "actor":
 		return ""
-	# 如果speaker_key是英文名，尝试用当前NPC中文名
 	var npc_name: String = current_npc_name
 	if npc_name == "":
 		npc_name = speaker_key
@@ -150,8 +148,9 @@ func _find_dialogue_file(npc_name: String) -> String:
 func _parse_dialogue(content: String, talk_index: int) -> Array:
 	var lines: Array = []
 	var name_map: Dictionary = _extract_name_map(content)
+	# 匹配格式: {talk:N}{对话内容}  或  {{talk:N}{对话内容}
 	var talk_pattern: RegEx = RegEx.new()
-	talk_pattern.compile("\\{\\{talk\\s*:\\s*" + str(talk_index) + "\\}\\{(.*?)\\}\\}(?=,|$)")
+	talk_pattern.compile("\\{talk\\s*:\\s*" + str(talk_index) + "\\}\\{(.*?)\\}(?=,\\{talk:|\\}\\})")
 	var talk_match: RegExMatch = talk_pattern.search(content)
 	if not talk_match:
 		return []
@@ -159,7 +158,7 @@ func _parse_dialogue(content: String, talk_index: int) -> Array:
 	var line_pattern: RegEx = RegEx.new()
 	line_pattern.compile("([a-zA-Z_0-9]+?)(?:_(\\d+))?\\s*:\\s*\"([^\"]*)\"")
 	var matches: Array = line_pattern.search_all(block)
-	for m in matches:
+	for m: RegExMatch in matches:
 		var raw_speaker: String = m.get_string(1)
 		var cg_index: String = m.get_string(2) if m.get_string(2) != "" else ""
 		var text: String = m.get_string(3)
@@ -184,9 +183,9 @@ func _extract_name_map(content: String) -> Dictionary:
 		end = content.length()
 	var header: String = content.substr(start, end - start)
 	var pattern: RegEx = RegEx.new()
-	pattern.compile("\"([a-zA-Z_0-9]+)\"\\s*:\\s*\"([^\"]*)\"")
+	pattern.compile('"([a-zA-Z_0-9]+)"\\s*:\\s*"([^"]*)"')
 	var matches: Array = pattern.search_all(header)
-	for m in matches:
+	for m: RegExMatch in matches:
 		map[m.get_string(1)] = m.get_string(2)
 	return map
 
@@ -200,10 +199,10 @@ func get_max_talk_count(npc_name: String) -> int:
 	var content: String = file.get_as_text()
 	file.close()
 	var pattern: RegEx = RegEx.new()
-	pattern.compile("\\{\\{talk\\s*:\\s*(\\d+)\\}\\}")
+	pattern.compile("\\{talk\\s*:\\s*(\\d+)\\}\\{")
 	var matches: Array = pattern.search_all(content)
 	var max_talk: int = 0
-	for m in matches:
+	for m: RegExMatch in matches:
 		var idx: int = int(m.get_string(1))
 		if idx > max_talk:
 			max_talk = idx
