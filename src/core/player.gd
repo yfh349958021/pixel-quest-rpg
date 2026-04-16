@@ -24,8 +24,9 @@ signal interact_requested(npc: Node2D)
 func _ready() -> void:
 	# 加载主角行走图
 	var sprite_path: String = "res://assets/characters/player/walk.png"
-	if ResourceLoader.exists(sprite_path):
-		sprite.texture = load(sprite_path)
+	var tex: Texture2D = _load_texture_from_path(sprite_path)
+	if tex:
+		sprite.texture = tex
 		sprite.hframes = 4
 		sprite.vframes = 4
 		sprite.frame_coords = Vector2i(0, 0)
@@ -95,6 +96,15 @@ func freeze_movement(freeze: bool) -> void:
 	_frozen = freeze
 	if freeze:
 		velocity = Vector2.ZERO
+
+func _load_texture_from_path(path: String) -> Texture2D:
+	var file_path: String = path.replace("res://", ProjectSettings.globalize_path("res://"))
+	if not FileAccess.file_exists(file_path):
+		return null
+	var img := Image.load_from_file(file_path)
+	if img == null:
+		return null
+	return ImageTexture.create_from_image(img)
 
 func get_save_position() -> Vector2:
 	return position

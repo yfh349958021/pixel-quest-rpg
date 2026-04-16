@@ -90,4 +90,11 @@ func _show_phase(phase: int) -> void:
 		btn.modulate = Color.WHITE if (i + 1) == phase else Color(0.5, 0.5, 0.5)
 
 func _on_back() -> void:
-	get_tree().change_scene_to_file("res://scenes/RecallRoom.tscn")
+	# 如果有caller_scene，显示它而非重新加载
+	if has_meta("caller_scene"):
+		var caller: Control = get_meta("caller_scene")
+		if is_instance_valid(caller):
+			caller.show()
+			queue_free()
+			return
+	SceneManager.goto_scene("res://scenes/RecallRoom.tscn")

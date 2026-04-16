@@ -72,8 +72,8 @@ func _on_line_shown(speaker: String, text: String, portrait_path: String, _cg_in
 		display_speaker = GameManager.player_name
 	speaker_label.text = display_speaker
 	text_label.text = text
-	if portrait_path != "" and ResourceLoader.exists(portrait_path):
-		var tex: Texture2D = load(portrait_path) as Texture2D
+	if portrait_path != "":
+		var tex: Texture2D = _load_texture_from_path(portrait_path)
 		if tex:
 			portrait.texture = tex
 	else:
@@ -89,6 +89,15 @@ func _on_dialogue_ended() -> void:
 	# 对话完成后提升好感度
 	if npc_name != "":
 		AffinityManager.on_dialogue_finished(npc_name)
+
+func _load_texture_from_path(path: String) -> Texture2D:
+	var file_path: String = path.replace("res://", ProjectSettings.globalize_path("res://"))
+	if not FileAccess.file_exists(file_path):
+		return null
+	var img := Image.load_from_file(file_path)
+	if img == null:
+		return null
+	return ImageTexture.create_from_image(img)
 
 func _on_video_requested(video_path: String) -> void:
 	if ResourceLoader.exists(video_path):

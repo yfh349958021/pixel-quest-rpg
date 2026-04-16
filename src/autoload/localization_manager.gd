@@ -54,29 +54,29 @@ func find_audio(base_name: String) -> String:
 	return ""
 
 func find_portrait(npc_name: String, expression_id: String = "01") -> String:
-	"""查找NPC立绘路径
-	npc_name: NPC中文名
-	expression_id: 表情编号 (01~11)
-	返回完整路径或空字符串
-	"""
+	"""查找NPC立绘路径（使用文件系统而非import缓存）"""
 	var portrait_dir: String = "res://assets/portraits/" + npc_name
+	var fs_dir: String = portrait_dir.replace("res://", ProjectSettings.globalize_path("res://"))
+	if not DirAccess.open(fs_dir):
+		return ""
 	for ext: String in [".png", ".jpg", ".webp"]:
-		var p: String = portrait_dir + "/" + expression_id + ext
-		if ResourceLoader.exists(p):
-			return p
+		var p: String = fs_dir + "/" + expression_id + ext
+		if FileAccess.file_exists(p):
+			return portrait_dir + "/" + expression_id + ext
 	# 回退到默认表情
 	for ext: String in [".png", ".jpg", ".webp"]:
-		var p: String = portrait_dir + "/01" + ext
-		if ResourceLoader.exists(p):
-			return p
+		var p: String = fs_dir + "/01" + ext
+		if FileAccess.file_exists(p):
+			return portrait_dir + "/01" + ext
 	return ""
 
 func find_pixel_image(base_name: String) -> String:
+	var fs_base: String = "res://assets/sprites/characters/".replace("res://", ProjectSettings.globalize_path("res://"))
 	var lang_suffix: String = SettingsManager.get_language_suffix()
 	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
 	for ext: String in [".png", ".jpg", ".webp"]:
 		for suf: String in [lang_suffix, fallback, ""]:
-			var p: String = "res://assets/sprites/characters/" + base_name + suf + ext
-			if ResourceLoader.exists(p):
-				return p
+			var p: String = fs_base + base_name + suf + ext
+			if FileAccess.file_exists(p):
+				return "res://assets/sprites/characters/" + base_name + suf + ext
 	return ""

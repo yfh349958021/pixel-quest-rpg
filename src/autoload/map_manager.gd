@@ -65,8 +65,8 @@ func _create_background(map_data: Dictionary, map_id: int) -> void:
 	
 	# 尝试加载实际背景图
 	var bg_path: String = MAP_BACKGROUNDS.get(map_id, "")
-	if bg_path != "" and ResourceLoader.exists(bg_path):
-		var tex: Texture2D = load(bg_path)
+	if bg_path != "":
+		var tex: Texture2D = _load_texture_from_path(bg_path)
 		if tex:
 			var sprite := Sprite2D.new()
 			sprite.name = "MapBackground"
@@ -155,8 +155,9 @@ func _spawn_npcs(map_data: Dictionary) -> void:
 		sprite.scale = Vector2(2.0, 2.0)
 		var npc_name: String = npc_data["name"]
 		var sprite_path: String = "res://assets/characters/npcs/%s.png" % npc_name
-		if ResourceLoader.exists(sprite_path):
-			sprite.texture = load(sprite_path)
+		var tex: Texture2D = _load_texture_from_path(sprite_path)
+		if tex:
+			sprite.texture = tex
 			# 设置hframes/vframes为spritesheet格式 (4x4)
 			sprite.hframes = 4
 			sprite.vframes = 4
@@ -244,6 +245,15 @@ func get_current_npcs() -> Array:
 	if _npc_container:
 		return _npc_container.get_children()
 	return []
+func _load_texture_from_path(path: String) -> Texture2D:
+	"""直接从文件加载纹理，不依赖import缓存"""
+	var file_path: String = path.replace("res://", ProjectSettings.globalize_path("res://"))
+	if not FileAccess.file_exists(file_path):
+		return null
+	var img := Image.load_from_file(file_path)
+	if img == null:
+		return null
+	return ImageTexture.create_from_image(img)
 
 func get_map_size_pixels(map_id: int) -> Vector2:
 	var data: Dictionary = MapsDB.get_map(map_id)

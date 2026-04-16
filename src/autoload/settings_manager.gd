@@ -10,7 +10,7 @@ const RESOLUTIONS := {
 	"720p": Vector2i(1280, 720),
 }
 
-var resolution_name: String = "720p"
+var resolution_name: String = "2K"
 var display_mode: int = 0
 var current_language: int = Language.CN
 

@@ -71,10 +71,11 @@ func _on_npc_clicked(npc_name: String) -> void:
 	if scene:
 		var inst: Control = scene.instantiate()
 		inst.set_meta("recall_npc", npc_name)
-		# 替换当前场景
 		get_tree().get_root().add_child(inst)
 		get_tree().current_scene = inst
-		queue_free()
+		hide()  # 隐藏而非销毁，让RecallDialogue可以返回
+		# 通知RecallDialogue当前场景是RecallRoom
+		inst.set_meta("caller_scene", self)
 
 func _on_back() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+	SceneManager.goto_scene("res://scenes/MainMenu.tscn")
