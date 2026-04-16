@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED: float = 200.0
 const SPRITE_SCALE: Vector2 = Vector2(2.0, 2.0)
-const FRAME_SIZE: int = 32
+const INTERACT_DISTANCE: float = 60.0
 
 @export var npc_name: String = ""
 
@@ -16,15 +16,14 @@ var _direction: int = 0  # 0=下 1=左 2=右 3=上
 var _anim_timer: float = 0.0
 var _anim_frame: int = 0
 var _is_moving: bool = false
-var _nearby_npcs: Array = []
-var _current_npc: Node2D = null
-var _click_target: Vector2 = Vector2.ZERO  # 鼠标点击目标位置
+var _click_target: Vector2 = Vector2.ZERO
 var _has_click_target: bool = false
+var _nearby_npcs: Array = []
 
 signal interact_requested(npc: Node2D)
 
 func _ready() -> void:
-	# 加载主角行走图
+	add_to_group("player")
 	var sprite_path: String = "res://assets/characters/player/walk.png"
 	var tex: Texture2D = _load_texture_from_path(sprite_path)
 	if tex:
@@ -60,10 +59,8 @@ func _physics_process(delta: float) -> void:
 		var dist := to_target.length()
 		if dist < 5.0:
 			_has_click_target = false
-			_is_moving = false
 			velocity = Vector2.ZERO
-			_anim_frame = 0
-			sprite.frame_coords = Vector2i(0, _direction)
+			_update_idle_frame()
 			move_and_slide()
 			return
 		input_dir = to_target.normalized()
@@ -72,58 +69,73 @@ func _physics_process(delta: float) -> void:
 		_is_moving = true
 		input_dir = input_dir.normalized()
 		velocity = input_dir * SPEED
-		# 更新方向
 		if input_dir.y > 0.3:
-			_direction = 0  # 下
+			_direction = 0
 		elif input_dir.y < -0.3:
-			_direction = 3  # 上
+			_direction = 3
 		elif input_dir.x < -0.3:
-			_direction = 1  # 左
+			_direction = 1
 		elif input_dir.x > 0.3:
-			_direction = 2  # 右
-		# 行走动画
+			_direction = 2
 		_anim_timer += delta
 		if _anim_timer >= 0.15:
 			_anim_timer = 0.0
 			_anim_frame = (_anim_frame + 1) % 4
 		sprite.frame_coords = Vector2i(_anim_frame, _direction)
 	else:
-		_is_moving = false
 		velocity = Vector2.ZERO
-		_anim_frame = 0
-		sprite.frame_coords = Vector2i(0, _direction)
+		_update_idle_frame()
 	
-	# 交互提示
+	# 空格交互 - 使用距离检测而非仅依赖Area2D信号
 	if Input.is_action_just_pressed("interact"):
 		_try_interact()
 	
 	move_and_slide()
+
+func _update_idle_frame() -> void:
+	_is_moving = false
+	_anim_frame = 0
+	sprite.frame_coords = Vector2i(0, _direction)
 
 func _input(event: InputEvent) -> void:
 	if _frozen:
 		return
 	# 鼠标左键点击移动
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		# 检查是否点击在UI上（是的话不处理）
-		if event.position.y > get_viewport_rect().size.y - 250:
-			return  # 点击在对话框区域，忽略
-		_click_target = camera.get_global_mouse_position()
+		_click_target = get_global_mouse_position()
 		_has_click_target = true
 
 func _on_area_body_entered(body: Node2D) -> void:
-	if body.name.begins_with("NPC_"):
+	if body.name.begins_with("NPC_") and body not in _nearby_npcs:
 		_nearby_npcs.append(body)
-		_current_npc = body
 
 func _on_area_body_exited(body: Node2D) -> void:
 	if body in _nearby_npcs:
 		_nearby_npcs.erase(body)
-	if _current_npc == body:
-		_current_npc = _nearby_npcs[-1] if _nearby_npcs.size() > 0 else null
 
 func _try_interact() -> void:
-	if _current_npc and is_instance_valid(_current_npc):
-		interact_requested.emit(_current_npc)
+	# 优先从Area2D检测的nearby列表找，回退到距离检测
+	var nearest: Node2D = null
+	var nearest_dist: float = INTERACT_DISTANCE
+	
+	for npc in _nearby_npcs:
+		if is_instance_valid(npc):
+			var d := position.distance_to(npc.position)
+			if d < nearest_dist:
+				nearest_dist = d
+				nearest = npc
+	
+	# 如果Area2D没检测到，手动距离检测所有NPC
+	if not nearest:
+		for npc in get_tree().get_nodes_in_group("npcs"):
+			if is_instance_valid(npc):
+				var d := position.distance_to(npc.position)
+				if d < nearest_dist:
+					nearest_dist = d
+					nearest = npc
+	
+	if nearest:
+		interact_requested.emit(nearest)
 
 func freeze_movement(freeze: bool) -> void:
 	_frozen = freeze
