@@ -4,7 +4,7 @@ extends Control
 @onready var npc_title: Label = $VBoxContainer/NPCTitle
 @onready var phase_buttons: HBoxContainer = $VBoxContainer/PhaseButtons
 @onready var dialogue_area: VBoxContainer = $VBoxContainer/ScrollContainer/DialogueArea
-@onready var btn_back: Button = $VBoxContainer/HBox/BtnBack
+@onready var btn_back: Button = $HBox/BtnBack
 
 var _npc_name: String = ""
 var _current_phase: int = 1

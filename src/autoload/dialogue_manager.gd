@@ -151,7 +151,7 @@ func _parse_dialogue(content: String, talk_index: int) -> Array:
 	var lines: Array = []
 	var name_map: Dictionary = _extract_name_map(content)
 	var talk_pattern: RegEx = RegEx.new()
-	talk_pattern.compile("\\{\\{talk\\s*:\\s*" + str(talk_index) + "\\}\\{(.*?)\\}\\}")
+	talk_pattern.compile("\\{\\{talk\\s*:\\s*" + str(talk_index) + "\\}\\{(.*?)\\}\\}(?=,|$)")
 	var talk_match: RegExMatch = talk_pattern.search(content)
 	if not talk_match:
 		return []

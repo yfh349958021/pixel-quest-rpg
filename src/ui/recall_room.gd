@@ -3,7 +3,7 @@ extends Control
 
 @onready var scroll: ScrollContainer = $VBoxContainer/ScrollContainer
 @onready var grid: GridContainer = $VBoxContainer/ScrollContainer/NPCCardGrid
-@onready var btn_back: Button = $VBoxContainer/HBox/BtnBack
+@onready var btn_back: Button = $HBox/BtnBack
 
 var _core_npcs: Array = [
 	{"name": "艾琳", "map": "蓝河村", "age": "18"},
