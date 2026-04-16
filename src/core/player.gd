@@ -38,7 +38,7 @@ func _ready() -> void:
 	sprite.offset = Vector2(0, 8)
 	interaction_area.body_entered.connect(_on_area_body_entered)
 	interaction_area.body_exited.connect(_on_area_body_exited)
-	_freeze(true)
+	freeze_movement(true)
 
 func _physics_process(delta: float) -> void:
 	if _frozen:
