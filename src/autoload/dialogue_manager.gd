@@ -144,7 +144,7 @@ func _find_dialogue_file(npc_name: String) -> String:
 	var fallback: String = "_jp" if lang_suffix == "_cn" else "_cn"
 	for suf in [lang_suffix, fallback]:
 		var fp: String = "res://data/npc_dialogues/" + npc_name + "_talk" + suf + ".txt"
-		if ResourceLoader.exists(fp):
+		if FileAccess.file_exists(fp):
 			return fp
 	return ""
 
